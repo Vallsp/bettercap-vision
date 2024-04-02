@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+
+  grafana:
+    image: grafana/grafana-oss
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - ./app/grafana-provisioning/:/etc/grafana/provisioning
+    depends_on:
+      - influxdb
+
+  bettercap:
+    image: bettercap/bettercap
+    container_name: bettercap
+    network_mode: host
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./app/bettercap_config:/root/.bettercap
+
+  influxdb:
+    image: influxdb:latest
+    ports:
+      - '8086:8086'
+    volumes:
+      - influxdb-storage:/var/lib/influxdb
+    environment:
+      - INFLUXDB_DB=db0
+      - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
+      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
+
+volumes:
+  grafana-storage:
+  influxdb-storage:
