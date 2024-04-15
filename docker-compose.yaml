@@ -50,7 +50,7 @@ services:
       - ./app/logstash/config:/usr/share/logstash/config
       - ./app/logstash/pipeline:/usr/share/logstash/pipeline
     ports:
-      - "5000:5000"
+      - "5044:5044"
     environment:
       - ELASTICSEARCH_HOST=elasticsearch
       - ELASTICSEARCH_PORT=9200
