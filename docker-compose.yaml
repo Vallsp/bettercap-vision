@@ -7,6 +7,9 @@ services:
     restart: unless-stopped
     ports:
       - '3000:3000'
+    environment:
+      - GF_ELASTICSEARCH_URL=http://elasticsearch:9200
+      - GF_ELASTICSEARCH_INDEX=@timestamp
     volumes:
       - grafana-storage:/var/lib/grafana
       - ./app/grafana-provisioning/:/etc/grafana/provisioning
@@ -16,10 +19,11 @@ services:
   bettercap:
     image: bettercap/bettercap
     container_name: bettercap
-    network_mode: host
+    # network_mode: host
+    privileged: true
     restart: unless-stopped
     ports:
-      - '80:80'
+      - '8080:80'
       - '8081:8081'
     cap_add:
       - NET_ADMIN
