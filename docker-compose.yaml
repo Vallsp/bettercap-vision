@@ -36,20 +36,27 @@ services:
     volumes:
       - elasticsearch-storage:/usr/share/elasticsearch/data
     environment:
-      - ELASTIC_PASSWORD=changeme
+      - discovery.type=single-node
+       # Paramètres de sécurité Elasticsearch
+      - xpack.security.enabled=true
+      - ELASTIC_PASSWORD=P@55aran
+      - xpack.security.authc.api_key.enabled=true
 
   logstash:
     image: logstash:8.13.0
     container_name: logstash
     restart: unless-stopped
     volumes:
-      - ./app/logstash/:/usr/share/logstash/pipeline
+      - ./app/logstash/config:/usr/share/logstash/config
+      - ./app/logstash/pipeline:/usr/share/logstash/pipeline
+    ports:
+      - "5000:5000"
     environment:
       - ELASTICSEARCH_HOST=elasticsearch
       - ELASTICSEARCH_PORT=9200
       - ELASTICSEARCH_USER=elastic
-      - ELASTICSEARCH_PASSWORD=changeme
-      - ELASTICSEARCH_SSL_ENABLED=rue
+      - ELASTICSEARCH_PASSWORD=P@55aran
+      - ELASTICSEARCH_SSL_ENABLED=true
       - ELASTICSEARCH_SSL_VERIFICATION_MODE=false
     depends_on:
       - elasticsearch
