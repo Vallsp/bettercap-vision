@@ -5,11 +5,12 @@ services:
     image: grafana/grafana-oss
     container_name: grafana
     restart: unless-stopped
-    ports:
-      - '3000:3000'
+    # ports:
+    #   - '3000:3000'
     environment:
       - GF_ELASTICSEARCH_URL=http://elasticsearch:9200
       - GF_ELASTICSEARCH_INDEX=@timestamp
+      - GF_INSTALL_PLUGINS=volkovlabs-form-panel
     volumes:
       - grafana-storage:/var/lib/grafana
       - ./app/grafana-provisioning/:/etc/grafana/provisioning
@@ -35,8 +36,8 @@ services:
     image: elasticsearch:8.13.0
     container_name: elasticsearch
     restart: unless-stopped
-    ports:
-      - '9200:9200'
+    # ports:
+    #   - '9200:9200'
     volumes:
       - elasticsearch-storage:/usr/share/elasticsearch/data
     environment:
@@ -53,8 +54,8 @@ services:
     volumes:
       - ./app/logstash/config:/usr/share/logstash/config
       - ./app/logstash/pipeline:/usr/share/logstash/pipeline
-    ports:
-      - "5044:5044"
+    # ports:
+    #   - "5044:5044"
     environment:
       - ELASTICSEARCH_HOST=elasticsearch
       - ELASTICSEARCH_PORT=9200
@@ -64,6 +65,19 @@ services:
       - ELASTICSEARCH_SSL_VERIFICATION_MODE=false
     depends_on:
       - elasticsearch
+  
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./app/nginx/conf.d:/etc/nginx/conf.d
+      - ./app/nginx/certs:/etc/nginx/certs
+    depends_on:
+      - grafana
 
 volumes:
   grafana-storage:
