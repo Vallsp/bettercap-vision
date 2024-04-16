@@ -7,5 +7,7 @@ datasources:
     url: http://elasticsearch:9200
     timeField: "@timestamp"
     elasticsearchVersion: 8.x
-    username: elastic
-    password: P@55aran
+    basicAuth: true
+    basicAuthUser: elastic
+    secureJsonData:
+      basicAuthPassword: P@55aran

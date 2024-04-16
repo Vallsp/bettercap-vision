@@ -3,8 +3,8 @@ services:
     image: grafana/grafana-oss
     container_name: grafana
     restart: unless-stopped
-    ports:
-      - '3000:3000'
+    # ports:
+    #   - '3000:3000'
     environment:
       - GF_ELASTICSEARCH_URL=http://elasticsearch:9200
       - GF_ELASTICSEARCH_INDEX=@timestamp
@@ -69,7 +69,7 @@ services:
     restart: unless-stopped
     ports:
       - '443:443'
-      - '8443:8443'
+      # - '8443:8443'
     volumes:
       - ./app/nginx/conf.d:/etc/nginx/conf.d
       - ./app/nginx/certs:/etc/nginx/certs
