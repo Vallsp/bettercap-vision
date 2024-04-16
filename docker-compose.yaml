@@ -1,6 +1,4 @@
-version: '3.8'
 services:
-
   grafana:
     image: grafana/grafana-oss
     container_name: grafana
@@ -21,7 +19,6 @@ services:
     image: bettercap/bettercap
     container_name: bettercap
     # network_mode: host
-    privileged: true
     restart: unless-stopped
     ports:
       - '8080:80'
@@ -73,6 +70,7 @@ services:
     ports:
       - '80:80'
       - '443:443'
+      - '8443:8443'
     volumes:
       - ./app/nginx/conf.d:/etc/nginx/conf.d
       - ./app/nginx/certs:/etc/nginx/certs
