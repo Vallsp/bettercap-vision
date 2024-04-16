@@ -33,8 +33,8 @@ services:
     image: elasticsearch:8.13.0
     container_name: elasticsearch
     restart: unless-stopped
-    # ports:
-    #   - '9200:9200'
+    ports:
+      - '9200:9200'
     volumes:
       - elasticsearch-storage:/usr/share/elasticsearch/data
     environment:

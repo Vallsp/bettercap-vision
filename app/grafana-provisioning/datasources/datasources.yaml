@@ -1,13 +1,17 @@
-# Define data sources
+apiVersion: 1
+
 datasources:
-  # Name for your data source (displayed in Grafana)
-  - name: elasticsearch
-    # Type of data source
-    type: elasticsearch
-    url: http://elasticsearch:9200
+- name: Elasticsearch
+  type: elasticsearch
+  access: proxy
+  orgId: 1
+  url: http://elasticsearch:9200
+  basicAuth: true
+  basicAuthUser: elastic
+  jsonData:
+    esVersion: 7
     timeField: "@timestamp"
-    elasticsearchVersion: 8.x
-    basicAuth: true
-    basicAuthUser: elastic
-    secureJsonData:
+    interval: Daily
+  isDefault: true
+  secureJsonData:
       basicAuthPassword: P@55aran
