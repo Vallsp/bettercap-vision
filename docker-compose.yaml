@@ -3,8 +3,8 @@ services:
     image: grafana/grafana-oss
     container_name: grafana
     restart: unless-stopped
-    # ports:
-    #   - '3000:3000'
+    ports:
+      - '3000:3000'
     environment:
       - GF_ELASTICSEARCH_URL=http://elasticsearch:9200
       - GF_ELASTICSEARCH_INDEX=@timestamp
@@ -18,16 +18,16 @@ services:
   bettercap:
     image: bettercap/bettercap
     container_name: bettercap
-    # network_mode: host
+    network_mode: host
     restart: unless-stopped
-    ports:
-      - '8080:80'
-      - '8081:8081'
+    # ports:
+    #   - '80:80'
+    #   - '8081:8081'
     cap_add:
       - NET_ADMIN
     volumes:
       - ./app/bettercap_config:/root/.bettercap
-    command: -caplet http-ui
+    command: -caplet http-ui -eval caplets.update -eval ui.update
 
   elasticsearch:
     image: elasticsearch:8.13.0
@@ -68,7 +68,6 @@ services:
     container_name: nginx
     restart: unless-stopped
     ports:
-      - '80:80'
       - '443:443'
       - '8443:8443'
     volumes:
