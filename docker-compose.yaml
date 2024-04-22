@@ -27,14 +27,16 @@ services:
       - NET_ADMIN
     volumes:
       - ./app/bettercap_config:/root/.bettercap
+      - ./app/bettercap_config/http-ui.cap:/app/http-ui.cap
+      - ./app/bettercap_config/https-ui.cap:/app/https-ui.cap
     command: -caplet http-ui -eval caplets.update -eval ui.update
 
   elasticsearch:
     image: elasticsearch:8.13.0
     container_name: elasticsearch
     restart: unless-stopped
-    ports:
-      - '9200:9200'
+    # ports:
+    #   - '9200:9200'
     volumes:
       - elasticsearch-storage:/usr/share/elasticsearch/data
     environment:
