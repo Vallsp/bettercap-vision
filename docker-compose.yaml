@@ -53,8 +53,8 @@ services:
     volumes:
       - ./app/logstash/config:/usr/share/logstash/config
       - ./app/logstash/pipeline:/usr/share/logstash/pipeline
-    # ports:
-    #   - "5044:5044"
+    ports:
+      - "5044:5044"
     environment:
       - ELASTICSEARCH_HOST=elasticsearch
       - ELASTICSEARCH_PORT=9200
