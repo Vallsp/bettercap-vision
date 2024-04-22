@@ -71,7 +71,7 @@ services:
     restart: unless-stopped
     ports:
       - '443:443'
-      # - '8443:8443'
+      - '80:80'
     volumes:
       - ./app/nginx/conf.d:/etc/nginx/conf.d
       - ./app/nginx/certs:/etc/nginx/certs
