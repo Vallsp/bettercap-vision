@@ -1,0 +1,203 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 2,
+    "links": [],
+    "panels": [
+      {
+        "datasource": {
+          "type": "elasticsearch",
+          "uid": "P31C819B24CF3C3C7"
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 7,
+          "x": 0,
+          "y": 0
+        },
+        "id": 1,
+        "options": {
+          "buttonGroup": {
+            "orientation": "left",
+            "size": "lg"
+          },
+          "confirmModal": {
+            "body": "Please confirm to update changed values",
+            "cancel": "Cancel",
+            "columns": {
+              "include": [
+                "name",
+                "oldValue",
+                "newValue"
+              ],
+              "name": "Label",
+              "newValue": "New Value",
+              "oldValue": "Old Value"
+            },
+            "confirm": "Confirm",
+            "title": "Confirm update request"
+          },
+          "elementValueChanged": "",
+          "elements": [
+            {
+              "id": "test",
+              "labelWidth": 10,
+              "options": [
+                {
+                  "icon": "angle-right",
+                  "id": "test1",
+                  "label": "test1",
+                  "type": "string",
+                  "value": "test1"
+                },
+                {
+                  "icon": "angle-right",
+                  "id": "test2",
+                  "label": "test2",
+                  "type": "string",
+                  "value": "test2"
+                },
+                {
+                  "icon": "angle-right",
+                  "id": "test3",
+                  "label": "test3",
+                  "type": "string",
+                  "value": "test3"
+                }
+              ],
+              "optionsSource": "Custom",
+              "section": "sec_1",
+              "title": "test",
+              "tooltip": "",
+              "type": "radio",
+              "uid": "c231c849-2946-428f-98cc-09412c0c3137",
+              "unit": "",
+              "value": ""
+            }
+          ],
+          "initial": {
+            "code": "console.log(data, response, initial, elements);\n\nreturn;\n\n/**\n * Data Source\n * Requires form elements to be defined\n */\nconst dataQuery = toDataQueryResponse(response);\nconsole.log(dataQuery);",
+            "contentType": "application/json",
+            "getPayload": "return {\n  rawSql: '',\n  format: 'table',\n}",
+            "highlight": false,
+            "highlightColor": "red",
+            "method": "-"
+          },
+          "layout": {
+            "orientation": "vertical",
+            "padding": 10,
+            "sections": [
+              {
+                "id": "sec_1",
+                "name": "sec_1"
+              },
+              {
+                "id": "Sec_2",
+                "name": "Sec_2"
+              }
+            ],
+            "variant": "split"
+          },
+          "reset": {
+            "backgroundColor": "purple",
+            "foregroundColor": "yellow",
+            "icon": "process",
+            "text": "Reset",
+            "variant": "hidden"
+          },
+          "resetAction": {
+            "code": "if (response && response.ok) {\n  notifySuccess(['Update', 'Values updated successfully.']);\n  locationService.reload();\n} else {\n  notifyError(['Update', 'An error occured updating values.']);\n}",
+            "confirm": false,
+            "getPayload": "return {\n  rawSql: '',\n  format: 'table',\n}",
+            "mode": "initial"
+          },
+          "saveDefault": {
+            "icon": "save",
+            "text": "Save Default",
+            "variant": "hidden"
+          },
+          "submit": {
+            "backgroundColor": "purple",
+            "foregroundColor": "yellow",
+            "icon": "cloud-upload",
+            "text": "Submit",
+            "variant": "primary"
+          },
+          "sync": true,
+          "update": {
+            "code": "if (response && response.ok) {\n  notifySuccess(['Update', 'Values updated successfully.']);\n  locationService.reload();\n} else {\n  notifyError(['Update', 'An error occured updating values.']);\n}",
+            "confirm": false,
+            "contentType": "application/json",
+            "getPayload": "const payload = {};\n\nelements.forEach((element) => {\n  if (!element.value) {\n    return;\n  }\n\n  payload[element.id] = element.value;\n})\n\nreturn payload;\n\n/**\n * Data Source payload\n */ \nreturn {\n  rawSql: '',\n  format: 'table',\n};",
+            "method": "POST",
+            "payloadMode": "all"
+          },
+          "updateEnabled": "auto"
+        },
+        "pluginVersion": "3.7.0",
+        "targets": [
+          {
+            "alias": "",
+            "bucketAggs": [
+              {
+                "field": "@timestamp",
+                "id": "2",
+                "settings": {
+                  "interval": "auto"
+                },
+                "type": "date_histogram"
+              }
+            ],
+            "datasource": {
+              "type": "elasticsearch",
+              "uid": "P31C819B24CF3C3C7"
+            },
+            "metrics": [
+              {
+                "id": "1",
+                "type": "count"
+              }
+            ],
+            "query": "",
+            "refId": "A",
+            "timeField": "@timestamp"
+          }
+        ],
+        "title": "Panel Title",
+        "transparent": true,
+        "type": "volkovlabs-form-panel"
+      }
+    ],
+    "schemaVersion": 39,
+    "tags": [],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "browser",
+    "title": "Scan LAN",
+    "uid": "fdji9hxaigd1cc",
+    "version": 4,
+    "weekStart": ""
+  }
