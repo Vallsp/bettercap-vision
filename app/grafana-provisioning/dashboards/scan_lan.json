@@ -1,203 +1,352 @@
 {
-    "annotations": {
-      "list": [
-        {
-          "builtIn": 1,
-          "datasource": {
-            "type": "grafana",
-            "uid": "-- Grafana --"
-          },
-          "enable": true,
-          "hide": true,
-          "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
-          "type": "dashboard"
-        }
-      ]
-    },
-    "editable": true,
-    "fiscalYearStartMonth": 0,
-    "graphTooltip": 0,
-    "id": 2,
-    "links": [],
-    "panels": [
+  "annotations": {
+    "list": [
       {
+        "builtIn": 1,
         "datasource": {
-          "type": "elasticsearch",
-          "uid": "P31C819B24CF3C3C7"
+          "type": "grafana",
+          "uid": "-- Grafana --"
         },
-        "gridPos": {
-          "h": 9,
-          "w": 7,
-          "x": 0,
-          "y": 0
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "P31C819B24CF3C3C7"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 3,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "lg"
         },
-        "id": 1,
-        "options": {
-          "buttonGroup": {
-            "orientation": "left",
-            "size": "lg"
-          },
-          "confirmModal": {
-            "body": "Please confirm to update changed values",
-            "cancel": "Cancel",
-            "columns": {
-              "include": [
-                "name",
-                "oldValue",
-                "newValue"
-              ],
-              "name": "Label",
-              "newValue": "New Value",
-              "oldValue": "Old Value"
-            },
-            "confirm": "Confirm",
-            "title": "Confirm update request"
-          },
-          "elementValueChanged": "",
-          "elements": [
-            {
-              "id": "test",
-              "labelWidth": 10,
-              "options": [
-                {
-                  "icon": "angle-right",
-                  "id": "test1",
-                  "label": "test1",
-                  "type": "string",
-                  "value": "test1"
-                },
-                {
-                  "icon": "angle-right",
-                  "id": "test2",
-                  "label": "test2",
-                  "type": "string",
-                  "value": "test2"
-                },
-                {
-                  "icon": "angle-right",
-                  "id": "test3",
-                  "label": "test3",
-                  "type": "string",
-                  "value": "test3"
-                }
-              ],
-              "optionsSource": "Custom",
-              "section": "sec_1",
-              "title": "test",
-              "tooltip": "",
-              "type": "radio",
-              "uid": "c231c849-2946-428f-98cc-09412c0c3137",
-              "unit": "",
-              "value": ""
-            }
-          ],
-          "initial": {
-            "code": "console.log(data, response, initial, elements);\n\nreturn;\n\n/**\n * Data Source\n * Requires form elements to be defined\n */\nconst dataQuery = toDataQueryResponse(response);\nconsole.log(dataQuery);",
-            "contentType": "application/json",
-            "getPayload": "return {\n  rawSql: '',\n  format: 'table',\n}",
-            "highlight": false,
-            "highlightColor": "red",
-            "method": "-"
-          },
-          "layout": {
-            "orientation": "vertical",
-            "padding": 10,
-            "sections": [
-              {
-                "id": "sec_1",
-                "name": "sec_1"
-              },
-              {
-                "id": "Sec_2",
-                "name": "Sec_2"
-              }
+        "confirmModal": {
+          "body": "Please confirm to update changed values",
+          "cancel": "Cancel",
+          "columns": {
+            "include": [
+              "name",
+              "oldValue",
+              "newValue"
             ],
-            "variant": "split"
+            "name": "Label",
+            "newValue": "New Value",
+            "oldValue": "Old Value"
           },
-          "reset": {
-            "backgroundColor": "purple",
-            "foregroundColor": "yellow",
-            "icon": "process",
-            "text": "Reset",
-            "variant": "hidden"
-          },
-          "resetAction": {
-            "code": "if (response && response.ok) {\n  notifySuccess(['Update', 'Values updated successfully.']);\n  locationService.reload();\n} else {\n  notifyError(['Update', 'An error occured updating values.']);\n}",
-            "confirm": false,
-            "getPayload": "return {\n  rawSql: '',\n  format: 'table',\n}",
-            "mode": "initial"
-          },
-          "saveDefault": {
-            "icon": "save",
-            "text": "Save Default",
-            "variant": "hidden"
-          },
-          "submit": {
-            "backgroundColor": "purple",
-            "foregroundColor": "yellow",
-            "icon": "cloud-upload",
-            "text": "Submit",
-            "variant": "primary"
-          },
-          "sync": true,
-          "update": {
-            "code": "if (response && response.ok) {\n  notifySuccess(['Update', 'Values updated successfully.']);\n  locationService.reload();\n} else {\n  notifyError(['Update', 'An error occured updating values.']);\n}",
-            "confirm": false,
-            "contentType": "application/json",
-            "getPayload": "const payload = {};\n\nelements.forEach((element) => {\n  if (!element.value) {\n    return;\n  }\n\n  payload[element.id] = element.value;\n})\n\nreturn payload;\n\n/**\n * Data Source payload\n */ \nreturn {\n  rawSql: '',\n  format: 'table',\n};",
-            "method": "POST",
-            "payloadMode": "all"
-          },
-          "updateEnabled": "auto"
+          "confirm": "Confirm",
+          "title": "Confirm update request"
         },
-        "pluginVersion": "3.7.0",
-        "targets": [
+        "elementValueChanged": "",
+        "elements": [
           {
-            "alias": "",
-            "bucketAggs": [
-              {
-                "field": "@timestamp",
-                "id": "2",
-                "settings": {
-                  "interval": "auto"
-                },
-                "type": "date_histogram"
-              }
-            ],
-            "datasource": {
-              "type": "elasticsearch",
-              "uid": "P31C819B24CF3C3C7"
-            },
-            "metrics": [
-              {
-                "id": "1",
-                "type": "count"
-              }
-            ],
-            "query": "",
-            "refId": "A",
-            "timeField": "@timestamp"
+            "hidden": false,
+            "id": "input_1",
+            "labelWidth": 25,
+            "section": "",
+            "showIf": "",
+            "title": "Adresse IP / range / reseaux",
+            "tooltip": "",
+            "type": "string",
+            "uid": "b74f0b12-c81a-43c8-bc96-a3e00186793c",
+            "unit": "",
+            "value": ""
+          },
+          {
+            "hidden": false,
+            "id": "input_2",
+            "labelWidth": 25,
+            "section": "",
+            "showIf": "",
+            "title": "ports / range port",
+            "tooltip": "",
+            "type": "string",
+            "uid": "16481e35-7687-4503-8d9c-4bfb0a7b74dc",
+            "unit": "",
+            "value": ""
           }
         ],
-        "title": "Panel Title",
-        "transparent": true,
-        "type": "volkovlabs-form-panel"
+        "initial": {
+          "code": "console.log(data, response, initial, elements);\n\nreturn;\n\n/**\n * Data Source\n * Requires form elements to be defined\n */\nconst dataQuery = toDataQueryResponse(response);\nconsole.log(dataQuery);",
+          "contentType": "application/json",
+          "getPayload": "return {\n  rawSql: '',\n  format: 'table',\n}",
+          "highlight": false,
+          "highlightColor": "red",
+          "method": "-"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 10,
+          "variant": "none"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "resetAction": {
+          "code": "if (response && response.ok) {\n  notifySuccess(['Update', 'Values updated successfully.']);\n  locationService.reload();\n} else {\n  notifyError(['Update', 'An error occured updating values.']);\n}",
+          "confirm": false,
+          "getPayload": "return {\n  rawSql: '',\n  format: 'table',\n}",
+          "mode": "initial"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "capture",
+          "text": "Start scan",
+          "variant": "primary"
+        },
+        "sync": true,
+        "update": {
+          "code": "if (response && response.ok) {\n  const commands = [\n    { cmd: `syn.scan ${input_1} ${input_2}` },\n    { cmd: `set events.stream.output /app/events.log` }\n\n  ];\n\n  const promises = commands.map(command => sendCommandToBetterCAP(command));\n\n  Promise.all(promises)\n    .then(() => {\n      notifySuccess(['Update', `Scan start ${input_1}:${input_2}.`]);\n      locationService.reload();\n    })\n    .catch(error => {\n      notifyError(['Update', error.message]);\n      console.error(error.message);\n    });\n} else {\n  notifyError(['Update', 'An error occured updating values.', error.message]);\n}\n\nfunction sendCommandToBetterCAP(command) {\n  const apiUrl = 'http://localhost:8081/api/session';\n  const token = 'dXNlcjpwYXNz';\n\n  return fetch(apiUrl, {\n    method: 'POST',\n    headers: {\n      'Authorization': `Basic ${token}`,\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify(command)\n  })\n    .then(response => {\n      if (!response.ok) {\n        return response.text().then(errorText => {\n          throw new Error(`Error: ${errorText}`);\n        });\n      }\n      return response.text();\n    })\n    .catch(error => {\n      console.error('There was a problem with the fetch operation:', error.message);\n      throw error;\n    });\n}",
+          "confirm": false,
+          "contentType": "application/json",
+          "getPayload": "const payload = {};\n\nelements.forEach((element) => {\n  if (!element.value) {\n    return;\n  }\n\n  payload[element.id] = element.value;\n})\n\nreturn payload;\n\n/**\n * Data Source payload\n */ \nreturn {\n  rawSql: '',\n  format: 'table',\n};",
+          "header": [
+            {
+              "name": "Authorization",
+              "value": "Basic dXNlcjpwYXNz"
+            }
+          ],
+          "method": "POST",
+          "payloadMode": "all",
+          "url": "http://localhost:8081/api/session"
+        },
+        "updateEnabled": "auto"
+      },
+      "pluginVersion": "3.7.0",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto"
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "P31C819B24CF3C3C7"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "query": "",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "transparent": true,
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "P31C819B24CF3C3C7"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 7,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "lg"
+        },
+        "confirmModal": {
+          "body": "Please confirm to update changed values",
+          "cancel": "Cancel",
+          "columns": {
+            "include": [
+              "name",
+              "oldValue",
+              "newValue"
+            ],
+            "name": "Label",
+            "newValue": "New Value",
+            "oldValue": "Old Value"
+          },
+          "confirm": "Confirm",
+          "title": "Confirm update request"
+        },
+        "elementValueChanged": "",
+        "initial": {
+          "code": "console.log(data, response, initial, elements);\n\nreturn;\n\n/**\n * Data Source\n * Requires form elements to be defined\n */\nconst dataQuery = toDataQueryResponse(response);\nconsole.log(dataQuery);",
+          "contentType": "application/json",
+          "getPayload": "return {\n  rawSql: '',\n  format: 'table',\n}",
+          "highlight": false,
+          "highlightColor": "red",
+          "method": "-"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 10,
+          "variant": "none"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "resetAction": {
+          "code": "if (response && response.ok) {\n  notifySuccess(['Update', 'Values updated successfully.']);\n  locationService.reload();\n} else {\n  notifyError(['Update', 'An error occured updating values.']);\n}",
+          "confirm": false,
+          "getPayload": "return {\n  rawSql: '',\n  format: 'table',\n}",
+          "mode": "initial"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "lock",
+          "text": "Stop scan",
+          "variant": "primary"
+        },
+        "sync": true,
+        "update": {
+          "code": "if (response && response.ok) {\n  const commands = [\n    { cmd: `syn.scan stop` }\n    // Ajoutez vos autres commandes ici\n  ];\n\n  const promises = commands.map(command => sendCommandToBetterCAP(command));\n\n  Promise.all(promises)\n    .then(() => {\n      notifySuccess(['Update', `Scan stop.`]);\n      locationService.reload();\n    })\n    .catch(error => {\n      notifyError(['Update', error.message]);\n      console.error(error.message);\n    });\n} else {\n  notifyError(['Update', 'An error occured updating values.', error.message]);\n}\n\nfunction sendCommandToBetterCAP(command) {\n  const apiUrl = 'http://localhost:8081/api/session';\n  const token = 'dXNlcjpwYXNz';\n\n  return fetch(apiUrl, {\n    method: 'POST',\n    headers: {\n      'Authorization': `Basic ${token}`,\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify(command)\n  })\n    .then(response => {\n      if (!response.ok) {\n        return response.text().then(errorText => {\n          throw new Error(`Error: ${errorText}`);\n        });\n      }\n      return response.text();\n    })\n    .catch(error => {\n      console.error('There was a problem with the fetch operation:', error.message);\n      throw error;\n    });\n}",
+          "confirm": false,
+          "contentType": "application/json",
+          "getPayload": "const payload = {};\n\nelements.forEach((element) => {\n  if (!element.value) {\n    return;\n  }\n\n  payload[element.id] = element.value;\n})\n\nreturn payload;\n\n/**\n * Data Source payload\n */ \nreturn {\n  rawSql: '',\n  format: 'table',\n};",
+          "header": [
+            {
+              "name": "Authorization",
+              "value": "Basic dXNlcjpwYXNz"
+            }
+          ],
+          "method": "POST",
+          "payloadMode": "all",
+          "url": "http://localhost:8081/api/session"
+        },
+        "updateEnabled": "auto"
+      },
+      "pluginVersion": "3.7.0",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto"
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "P31C819B24CF3C3C7"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "query": "",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "transparent": true,
+      "type": "volkovlabs-form-panel"
+    }
+  ],
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "127.0.0.1",
+          "value": "127.0.0.1"
+        },
+        "hide": 0,
+        "label": "Adress IP / Range / Network",
+        "name": "input_1",
+        "options": [
+          {
+            "selected": true,
+            "text": "127.0.0.1",
+            "value": "127.0.0.1"
+          }
+        ],
+        "query": "127.0.0.1",
+        "skipUrlSync": false,
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "",
+          "value": ""
+        },
+        "hide": 0,
+        "label": "Port / Range",
+        "name": "input_2",
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "",
+        "skipUrlSync": false,
+        "type": "textbox"
       }
-    ],
-    "schemaVersion": 39,
-    "tags": [],
-    "templating": {
-      "list": []
-    },
-    "time": {
-      "from": "now-6h",
-      "to": "now"
-    },
-    "timepicker": {},
-    "timezone": "browser",
-    "title": "Scan LAN",
-    "uid": "fdji9hxaigd1cc",
-    "version": 4,
-    "weekStart": ""
-  }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Scan LAN",
+  "uid": "fdji9hxaigd1cc",
+  "version": 14,
+  "weekStart": ""
+}

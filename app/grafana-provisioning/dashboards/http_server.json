@@ -1,346 +1,345 @@
 {
-    "annotations": {
-      "list": [
-        {
-          "builtIn": 1,
-          "datasource": {
-            "type": "grafana",
-            "uid": "-- Grafana --"
-          },
-          "enable": true,
-          "hide": true,
-          "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
-          "type": "dashboard"
-        }
-      ]
-    },
-    "editable": true,
-    "fiscalYearStartMonth": 0,
-    "graphTooltip": 0,
-    "id": 1,
-    "links": [],
-    "panels": [
+  "annotations": {
+    "list": [
       {
+        "builtIn": 1,
         "datasource": {
-          "type": "elasticsearch",
-          "uid": "P31C819B24CF3C3C7"
+          "type": "grafana",
+          "uid": "-- Grafana --"
         },
-        "gridPos": {
-          "h": 2,
-          "w": 3,
-          "x": 0,
-          "y": 0
-        },
-        "id": 1,
-        "options": {
-          "buttonGroup": {
-            "orientation": "left",
-            "size": "lg"
-          },
-          "confirmModal": {
-            "body": "Please confirm to update changed values",
-            "cancel": "Cancel",
-            "columns": {
-              "include": [
-                "name",
-                "oldValue",
-                "newValue"
-              ],
-              "name": "Label",
-              "newValue": "New Value",
-              "oldValue": "Old Value"
-            },
-            "confirm": "Confirm",
-            "title": "Confirm update request"
-          },
-          "elementValueChanged": "",
-          "elements": [],
-          "initial": {
-            "code": "console.log(data, response, initial, elements);\n\nreturn;\n\n/**\n * Data Source\n * Requires form elements to be defined\n */\nconst dataQuery = toDataQueryResponse(response);\nconsole.log(dataQuery);",
-            "contentType": "application/json",
-            "getPayload": "return {\n  rawSql: '',\n  format: 'table',\n}",
-            "highlight": false,
-            "highlightColor": "red",
-            "method": "-"
-          },
-          "layout": {
-            "orientation": "horizontal",
-            "padding": 10,
-            "variant": "none"
-          },
-          "reset": {
-            "backgroundColor": "purple",
-            "foregroundColor": "yellow",
-            "icon": "process",
-            "text": "Reset",
-            "variant": "hidden"
-          },
-          "resetAction": {
-            "code": "if (response && response.ok) {\n  notifySuccess(['Update', 'Values updated successfully.']);\n  locationService.reload();\n} else {\n  notifyError(['Update', 'An error occured updating values.']);\n}",
-            "confirm": false,
-            "getPayload": "return {\n  rawSql: '',\n  format: 'table',\n}",
-            "mode": "initial"
-          },
-          "saveDefault": {
-            "icon": "save",
-            "text": "Save Default",
-            "variant": "hidden"
-          },
-          "submit": {
-            "backgroundColor": "purple",
-            "foregroundColor": "yellow",
-            "icon": "arrow-right",
-            "text": "HTTP ON",
-            "variant": "primary"
-          },
-          "sync": true,
-          "update": {
-            "code": "if (response && response.ok) {\n  const commands = [\n    { cmd: `set http.server.address ${Var_1}` },\n    { cmd: `set http.server.path ${Var_2}` },\n    { cmd: `set http.server.port ${Var_3}` },\n    { cmd: `http.server on` }\n    // Ajoutez vos autres commandes ici\n  ];\n\n  const promises = commands.map(command => sendCommandToBetterCAP(command));\n\n  Promise.all(promises)\n    .then(() => {\n      notifySuccess(['Update', `Serveur http start ${Var_1}:${Var_3}.`]);\n      locationService.reload();\n    })\n    .catch(error => {\n      notifyError(['Update', 'An error occured updating values.', error.message]);\n      console.error('Error sending commands to BetterCAP:', error.message);\n    });\n} else {\n  notifyError(['Update', 'An error occured updating values.']);\n}\n\nfunction sendCommandToBetterCAP(command) {\n  const apiUrl = 'http://localhost:8081/api/session';\n  const token = 'dXNlcjpwYXNz';\n\n  return fetch(apiUrl, {\n    method: 'POST',\n    headers: {\n      'Authorization': `Basic ${token}`,\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify(command)\n  })\n    .then(response => {\n      if (!response.ok) {\n        return response.text().then(errorText => {\n          throw new Error(`Server responded with status: ${response.status}. Error: ${errorText}`);\n        });\n      }\n      return response.text();\n    })\n    .catch(error => {\n      console.error('There was a problem with the fetch operation:', error.message);\n      throw error;\n    });\n}",
-            "confirm": false,
-            "contentType": "application/json",
-            "getPayload": "const payload = {};\n\nelements.forEach((element) => {\n  if (!element.value) {\n    return;\n  }\n\n  payload[element.id] = element.value;\n})\n\nreturn payload;\n\n/**\n * Data Source payload\n */ \nreturn {\n  rawSql: '',\n  format: 'table',\n};",
-            "header": [
-              {
-                "name": "Authorization",
-                "value": "Basic dXNlcjpwYXNz"
-              }
-            ],
-            "method": "POST",
-            "payloadMode": "all",
-            "url": "http://localhost:8081/api/session"
-          },
-          "updateEnabled": "auto"
-        },
-        "pluginVersion": "3.7.0",
-        "targets": [
-          {
-            "alias": "",
-            "bucketAggs": [
-              {
-                "field": "@timestamp",
-                "id": "2",
-                "settings": {
-                  "interval": "auto"
-                },
-                "type": "date_histogram"
-              }
-            ],
-            "datasource": {
-              "type": "elasticsearch",
-              "uid": "P31C819B24CF3C3C7"
-            },
-            "metrics": [
-              {
-                "id": "1",
-                "type": "count"
-              }
-            ],
-            "query": "",
-            "refId": "A",
-            "timeField": "@timestamp"
-          }
-        ],
-        "transparent": true,
-        "type": "volkovlabs-form-panel"
-      },
-      {
-        "datasource": {
-          "type": "elasticsearch",
-          "uid": "P31C819B24CF3C3C7"
-        },
-        "gridPos": {
-          "h": 2,
-          "w": 3,
-          "x": 3,
-          "y": 0
-        },
-        "id": 2,
-        "options": {
-          "buttonGroup": {
-            "orientation": "left",
-            "size": "lg"
-          },
-          "confirmModal": {
-            "body": "Please confirm to update changed values",
-            "cancel": "Cancel",
-            "columns": {
-              "include": [
-                "name",
-                "oldValue",
-                "newValue"
-              ],
-              "name": "Label",
-              "newValue": "New Value",
-              "oldValue": "Old Value"
-            },
-            "confirm": "Confirm",
-            "title": "Confirm update request"
-          },
-          "elementValueChanged": "",
-          "initial": {
-            "code": "console.log(data, response, initial, elements);\n\nreturn;\n\n/**\n * Data Source\n * Requires form elements to be defined\n */\nconst dataQuery = toDataQueryResponse(response);\nconsole.log(dataQuery);",
-            "contentType": "application/json",
-            "getPayload": "return {\n  rawSql: '',\n  format: 'table',\n}",
-            "highlight": false,
-            "highlightColor": "red",
-            "method": "-"
-          },
-          "layout": {
-            "orientation": "horizontal",
-            "padding": 10,
-            "variant": "none"
-          },
-          "reset": {
-            "backgroundColor": "purple",
-            "foregroundColor": "yellow",
-            "icon": "process",
-            "text": "Reset",
-            "variant": "hidden"
-          },
-          "resetAction": {
-            "code": "if (response && response.ok) {\n  notifySuccess(['Update', 'Values updated successfully.']);\n  locationService.reload();\n} else {\n  notifyError(['Update', 'An error occured updating values.']);\n}",
-            "confirm": false,
-            "getPayload": "return {\n  rawSql: '',\n  format: 'table',\n}",
-            "mode": "initial"
-          },
-          "saveDefault": {
-            "icon": "save",
-            "text": "Save Default",
-            "variant": "hidden"
-          },
-          "submit": {
-            "backgroundColor": "purple",
-            "foregroundColor": "yellow",
-            "icon": "arrow-right",
-            "text": "HTTP OFF",
-            "variant": "primary"
-          },
-          "sync": true,
-          "update": {
-            "code": "if (response && response.ok) {\n  // Envoyer la commande à BetterCAP\n  sendCommandToBetterCAP()\n    .then(responseData => {\n      notifySuccess(['Update', 'Values updated successfully.']);\n      locationService.reload();\n    })\n    .catch(error => {\n      notifyError(['Update', 'An error occured updating values.', error.message]);\n      console.error('Error sending command to BetterCAP:', error.message);\n    });\n} else {\n  notifyError(['Update', 'An error occured updating values.']);\n}\n\nfunction sendCommandToBetterCAP() {\n  const apiUrl = 'http://localhost:8081/api/session'; // Remplacez par l'URL de l'API BetterCAP\n  const token = 'dXNlcjpwYXNz'; // Remplacez par votre token d'API\n\n  const command = {\n    cmd: 'http.server off'\n  };\n\n  return fetch(apiUrl, {\n    method: 'POST',\n    headers: {\n      'Authorization': `Basic ${token}`,\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify(command)\n  })\n    .then(response => {\n      if (!response.ok) {\n        return response.text().then(errorText => {\n          throw new Error(`Server responded with status: ${response.status}. Error: ${errorText}`);\n        });\n      }\n      return response.text(); // Utilisez response.text() pour obtenir le contenu textuel de la réponse\n    })\n    .catch(error => {\n      console.error('There was a problem with the fetch operation:', error.message);\n      throw error;\n    });\n}",
-            "confirm": false,
-            "contentType": "application/json",
-            "getPayload": "const payload = {};\n\nelements.forEach((element) => {\n  if (!element.value) {\n    return;\n  }\n\n  payload[element.id] = element.value;\n})\n\nreturn payload;\n\n/**\n * Data Source payload\n */ \nreturn {\n  rawSql: '',\n  format: 'table',\n};",
-            "header": [
-              {
-                "name": "Authorization",
-                "value": "Basic dXNlcjpwYXNz"
-              }
-            ],
-            "method": "POST",
-            "payloadMode": "all",
-            "url": "http://localhost:8081/api/session"
-          },
-          "updateEnabled": "auto"
-        },
-        "pluginVersion": "3.7.0",
-        "targets": [
-          {
-            "alias": "",
-            "bucketAggs": [
-              {
-                "field": "@timestamp",
-                "id": "2",
-                "settings": {
-                  "interval": "auto"
-                },
-                "type": "date_histogram"
-              }
-            ],
-            "datasource": {
-              "type": "elasticsearch",
-              "uid": "P31C819B24CF3C3C7"
-            },
-            "metrics": [
-              {
-                "id": "1",
-                "type": "count"
-              }
-            ],
-            "query": "",
-            "refId": "A",
-            "timeField": "@timestamp"
-          }
-        ],
-        "transparent": true,
-        "type": "volkovlabs-form-panel"
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
       }
-    ],
-    "schemaVersion": 39,
-    "tags": [],
-    "templating": {
-      "list": [
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "P31C819B24CF3C3C7"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "buttonGroup": {
+          "orientation": "left",
+          "size": "lg"
+        },
+        "confirmModal": {
+          "body": "Please confirm to update changed values",
+          "cancel": "Cancel",
+          "columns": {
+            "include": [
+              "name",
+              "oldValue",
+              "newValue"
+            ],
+            "name": "Label",
+            "newValue": "New Value",
+            "oldValue": "Old Value"
+          },
+          "confirm": "Confirm",
+          "title": "Confirm update request"
+        },
+        "elementValueChanged": "",
+        "elements": [],
+        "initial": {
+          "code": "console.log(data, response, initial, elements);\n\nreturn;\n\n/**\n * Data Source\n * Requires form elements to be defined\n */\nconst dataQuery = toDataQueryResponse(response);\nconsole.log(dataQuery);",
+          "contentType": "application/json",
+          "getPayload": "return {\n  rawSql: '',\n  format: 'table',\n}",
+          "highlight": false,
+          "highlightColor": "red",
+          "method": "-"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 10,
+          "variant": "none"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "resetAction": {
+          "code": "if (response && response.ok) {\n  notifySuccess(['Update', 'Values updated successfully.']);\n  locationService.reload();\n} else {\n  notifyError(['Update', 'An error occured updating values.']);\n}",
+          "confirm": false,
+          "getPayload": "return {\n  rawSql: '',\n  format: 'table',\n}",
+          "mode": "initial"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "arrow-right",
+          "text": "HTTP ON",
+          "variant": "primary"
+        },
+        "sync": true,
+        "update": {
+          "code": "if (response && response.ok) {\n  const commands = [\n    { cmd: `set http.server.address ${Var_1}` },\n    { cmd: `set http.server.path ${Var_2}` },\n    { cmd: `set http.server.port ${Var_3}` },\n    { cmd: `http.server on` }\n    // Ajoutez vos autres commandes ici\n  ];\n\n  const promises = commands.map(command => sendCommandToBetterCAP(command));\n\n  Promise.all(promises)\n    .then(() => {\n      notifySuccess(['Update', `Serveur http start ${Var_1}:${Var_3}.`]);\n      locationService.reload();\n    })\n    .catch(error => {\n      notifyError(['Update', error.message]);\n      console.error( error.message);\n    });\n} else {\n  notifyError(['Update', 'An error occured updating values.']);\n}\n\nfunction sendCommandToBetterCAP(command) {\n  const apiUrl = 'http://localhost:8081/api/session';\n  const token = 'dXNlcjpwYXNz';\n\n  return fetch(apiUrl, {\n    method: 'POST',\n    headers: {\n      'Authorization': `Basic ${token}`,\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify(command)\n  })\n    .then(response => {\n      if (!response.ok) {\n        return response.text().then(errorText => {\n          throw new Error(`Error: ${errorText}`);\n        });\n      }\n      return response.text();\n    })\n    .catch(error => {\n      console.error('There was a problem with the fetch operation:', error.message);\n      throw error;\n    });\n}",
+          "confirm": false,
+          "contentType": "application/json",
+          "getPayload": "const payload = {};\n\nelements.forEach((element) => {\n  if (!element.value) {\n    return;\n  }\n\n  payload[element.id] = element.value;\n})\n\nreturn payload;\n\n/**\n * Data Source payload\n */ \nreturn {\n  rawSql: '',\n  format: 'table',\n};",
+          "header": [
+            {
+              "name": "Authorization",
+              "value": "Basic dXNlcjpwYXNz"
+            }
+          ],
+          "method": "POST",
+          "payloadMode": "all",
+          "url": "http://localhost:8081/api/session"
+        },
+        "updateEnabled": "auto"
+      },
+      "pluginVersion": "3.7.0",
+      "targets": [
         {
-          "current": {
-            "selected": false,
+          "alias": "",
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto"
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "P31C819B24CF3C3C7"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "query": "",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "transparent": true,
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "P31C819B24CF3C3C7"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 3,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "buttonGroup": {
+          "orientation": "left",
+          "size": "lg"
+        },
+        "confirmModal": {
+          "body": "Please confirm to update changed values",
+          "cancel": "Cancel",
+          "columns": {
+            "include": [
+              "name",
+              "oldValue",
+              "newValue"
+            ],
+            "name": "Label",
+            "newValue": "New Value",
+            "oldValue": "Old Value"
+          },
+          "confirm": "Confirm",
+          "title": "Confirm update request"
+        },
+        "elementValueChanged": "",
+        "initial": {
+          "code": "console.log(data, response, initial, elements);\n\nreturn;\n\n/**\n * Data Source\n * Requires form elements to be defined\n */\nconst dataQuery = toDataQueryResponse(response);\nconsole.log(dataQuery);",
+          "contentType": "application/json",
+          "getPayload": "return {\n  rawSql: '',\n  format: 'table',\n}",
+          "highlight": false,
+          "highlightColor": "red",
+          "method": "-"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 10,
+          "variant": "none"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "resetAction": {
+          "code": "if (response && response.ok) {\n  notifySuccess(['Update', 'Values updated successfully.']);\n  locationService.reload();\n} else {\n  notifyError(['Update', 'An error occured updating values.']);\n}",
+          "confirm": false,
+          "getPayload": "return {\n  rawSql: '',\n  format: 'table',\n}",
+          "mode": "initial"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "arrow-right",
+          "text": "HTTP OFF",
+          "variant": "primary"
+        },
+        "sync": true,
+        "update": {
+          "code": "if (response && response.ok) {\n  // Envoyer la commande à BetterCAP\n  sendCommandToBetterCAP()\n    .then(responseData => {\n      notifySuccess(['Update', 'Values updated successfully.']);\n      locationService.reload();\n    })\n    .catch(error => {\n      notifyError(['Update', 'An error occured updating values.', error.message]);\n      console.error('Error sending command to BetterCAP:', error.message);\n    });\n} else {\n  notifyError(['Update', 'An error occured updating values.']);\n}\n\nfunction sendCommandToBetterCAP() {\n  const apiUrl = 'http://localhost:8081/api/session'; // Remplacez par l'URL de l'API BetterCAP\n  const token = 'dXNlcjpwYXNz'; // Remplacez par votre token d'API\n\n  const command = {\n    cmd: 'http.server off'\n  };\n\n  return fetch(apiUrl, {\n    method: 'POST',\n    headers: {\n      'Authorization': `Basic ${token}`,\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify(command)\n  })\n    .then(response => {\n      if (!response.ok) {\n        return response.text().then(errorText => {\n          throw new Error(`Server responded with status: ${response.status}. Error: ${errorText}`);\n        });\n      }\n      return response.text(); // Utilisez response.text() pour obtenir le contenu textuel de la réponse\n    })\n    .catch(error => {\n      console.error('There was a problem with the fetch operation:', error.message);\n      throw error;\n    });\n}",
+          "confirm": false,
+          "contentType": "application/json",
+          "getPayload": "const payload = {};\n\nelements.forEach((element) => {\n  if (!element.value) {\n    return;\n  }\n\n  payload[element.id] = element.value;\n})\n\nreturn payload;\n\n/**\n * Data Source payload\n */ \nreturn {\n  rawSql: '',\n  format: 'table',\n};",
+          "header": [
+            {
+              "name": "Authorization",
+              "value": "Basic dXNlcjpwYXNz"
+            }
+          ],
+          "method": "POST",
+          "payloadMode": "all",
+          "url": "http://localhost:8081/api/session"
+        },
+        "updateEnabled": "auto"
+      },
+      "pluginVersion": "3.7.0",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto"
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "P31C819B24CF3C3C7"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "query": "",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "transparent": true,
+      "type": "volkovlabs-form-panel"
+    }
+  ],
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "127.0.0.1",
+          "value": "127.0.0.1"
+        },
+        "hide": 0,
+        "label": "http.server.address ",
+        "name": "Var_1",
+        "options": [
+          {
+            "selected": true,
             "text": "127.0.0.1",
             "value": "127.0.0.1"
-          },
-          "hide": 0,
-          "label": "http.server.address ",
-          "name": "Var_1",
-          "options": [
-            {
-              "selected": true,
-              "text": "127.0.0.1",
-              "value": "127.0.0.1"
-            }
-          ],
-          "query": "127.0.0.1",
-          "skipUrlSync": false,
-          "type": "textbox"
+          }
+        ],
+        "query": "127.0.0.1",
+        "skipUrlSync": false,
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "/usr/local/share/bettercap/ui",
+          "value": "/usr/local/share/bettercap/ui"
         },
-        {
-          "current": {
-            "selected": false,
+        "hide": 0,
+        "label": "http.server.path",
+        "name": "Var_2",
+        "options": [
+          {
+            "selected": true,
             "text": "/usr/local/share/bettercap/ui",
             "value": "/usr/local/share/bettercap/ui"
-          },
-          "hide": 0,
-          "label": "http.server.path",
-          "name": "Var_2",
-          "options": [
-            {
-              "selected": true,
-              "text": "/usr/local/share/bettercap/ui",
-              "value": "/usr/local/share/bettercap/ui"
-            }
-          ],
-          "query": "/usr/local/share/bettercap/ui",
-          "skipUrlSync": false,
-          "type": "textbox"
+          }
+        ],
+        "query": "/usr/local/share/bettercap/ui",
+        "skipUrlSync": false,
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "8082",
+          "value": "8082"
         },
-        {
-          "current": {
-            "selected": false,
+        "hide": 0,
+        "label": "http.server.port ",
+        "name": "Var_3",
+        "options": [
+          {
+            "selected": true,
             "text": "8082",
             "value": "8082"
-          },
-          "hide": 0,
-          "label": "http.server.port ",
-          "name": "Var_3",
-          "options": [
-            {
-              "selected": true,
-              "text": "8082",
-              "value": "8082"
-            }
-          ],
-          "query": "8082",
-          "skipUrlSync": false,
-          "type": "textbox"
-        }
-      ]
-    },
-    "time": {
-      "from": "now-6h",
-      "to": "now"
-    },
-    "timepicker": {},
-    "timezone": "browser",
-    "title": "HTTP.server",
-    "uid": "edjh90w0izt34e",
-    "version": 70,
-    "weekStart": ""
-  }
+          }
+        ],
+        "query": "8082",
+        "skipUrlSync": false,
+        "type": "textbox"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "HTTP.server",
+  "uid": "edjh90w0izt34e",
+  "version": 71,
+  "weekStart": ""
+}
