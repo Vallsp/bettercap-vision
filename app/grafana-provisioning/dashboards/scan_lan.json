@@ -470,9 +470,21 @@
             "include": {
               "names": [
                 "data",
-                "@timestamp"
+                "time"
               ]
             }
+          }
+        },
+        {
+          "id": "sortBy",
+          "options": {
+            "fields": {},
+            "sort": [
+              {
+                "desc": true,
+                "field": "time"
+              }
+            ]
           }
         }
       ],
@@ -534,6 +546,6 @@
   "timezone": "browser",
   "title": "Scan LAN",
   "uid": "fdji9hxaigd1cc",
-  "version": 18,
+  "version": 4,
   "weekStart": ""
 }
