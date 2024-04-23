@@ -26,7 +26,6 @@ services:
     cap_add:
       - NET_ADMIN
     volumes:
-      - ./app/bettercap_config:/root/.bettercap
       - ./app/bettercap_config/http-ui.cap:/app/http-ui.cap
       - ./app/bettercap_config/https-ui.cap:/app/https-ui.cap
     command: -caplet http-ui -eval caplets.update -eval ui.update
@@ -35,8 +34,8 @@ services:
     image: elasticsearch:8.13.0
     container_name: elasticsearch
     restart: unless-stopped
-    # ports:
-    #   - '9200:9200'
+    ports:
+      - '9200:9200'
     volumes:
       - elasticsearch-storage:/usr/share/elasticsearch/data
     environment:
@@ -50,11 +49,12 @@ services:
     image: logstash:8.13.0
     container_name: logstash
     restart: unless-stopped
+    network_mode: host
     volumes:
       - ./app/logstash/config:/usr/share/logstash/config
       - ./app/logstash/pipeline:/usr/share/logstash/pipeline
-    ports:
-      - "5044:5044"
+    # ports:
+    #   - "5044:5044"
     environment:
       - ELASTICSEARCH_HOST=elasticsearch
       - ELASTICSEARCH_PORT=9200
