@@ -27,8 +27,8 @@
         "uid": "P31C819B24CF3C3C7"
       },
       "gridPos": {
-        "h": 2,
-        "w": 3,
+        "h": 3,
+        "w": 4,
         "x": 3,
         "y": 0
       },
@@ -177,8 +177,8 @@
         "uid": "P31C819B24CF3C3C7"
       },
       "gridPos": {
-        "h": 2,
-        "w": 3,
+        "h": 4,
+        "w": 4,
         "x": 7,
         "y": 0
       },
@@ -546,6 +546,6 @@
   "timezone": "browser",
   "title": "Scan LAN",
   "uid": "fdji9hxaigd1cc",
-  "version": 4,
+  "version": 5,
   "weekStart": ""
 }
