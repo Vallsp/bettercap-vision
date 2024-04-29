@@ -524,13 +524,6 @@
                   }
                 },
                 "fieldName": "data"
-              },
-              {
-                "config": {
-                  "id": "isNull",
-                  "options": {}
-                },
-                "fieldName": "time"
               }
             ],
             "match": "any",
@@ -633,6 +626,6 @@
   "timezone": "browser",
   "title": "Scan LAN",
   "uid": "fdji9hxaigd1cc",
-  "version": 24,
+  "version": 4,
   "weekStart": ""
 }
