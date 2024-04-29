@@ -436,6 +436,24 @@
       "title": "Panel Title",
       "transformations": [
         {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "regex",
+                  "options": {
+                    "value": ".*arp\\.spoof*"
+                  }
+                },
+                "fieldName": "data"
+              }
+            ],
+            "match": "any",
+            "type": "include"
+          }
+        },
+        {
           "id": "filterFieldsByName",
           "options": {
             "include": {
@@ -496,6 +514,6 @@
   "timezone": "browser",
   "title": "ARP_Spoof",
   "uid": "cdjlzrq0g658gb",
-  "version": 7,
+  "version": 2,
   "weekStart": ""
 }
