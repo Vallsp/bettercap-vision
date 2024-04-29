@@ -18,6 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 2,
   "links": [],
   "liveNow": true,
   "panels": [
@@ -27,8 +28,8 @@
         "uid": "P31C819B24CF3C3C7"
       },
       "gridPos": {
-        "h": 4,
-        "w": 6,
+        "h": 2,
+        "w": 3,
         "x": 0,
         "y": 0
       },
@@ -177,8 +178,8 @@
         "uid": "P31C819B24CF3C3C7"
       },
       "gridPos": {
-        "h": 5,
-        "w": 6,
+        "h": 2,
+        "w": 3,
         "x": 6,
         "y": 0
       },
@@ -300,6 +301,159 @@
       },
       "fieldConfig": {
         "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "@timestamp"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 191
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "highlight"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 388
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "_source"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 1067
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "_id"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 553
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "data"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 892
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 11,
+        "x": 12,
+        "y": 0
+      },
+      "id": 6,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "P31C819B24CF3C3C7"
+          },
+          "hide": false,
+          "metrics": [
+            {
+              "id": "1",
+              "settings": {
+                "limit": "500"
+              },
+              "type": "logs"
+            }
+          ],
+          "query": "syn.scan",
+          "refId": "B",
+          "timeField": "@timestamp"
+        }
+      ],
+      "title": "Panel Title",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "data",
+                "tag"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "P31C819B24CF3C3C7"
+      },
+      "fieldConfig": {
+        "defaults": {
           "color": {
             "mode": "thresholds"
           },
@@ -323,8 +477,8 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 12,
-        "y": 0
+        "x": 0,
+        "y": 2
       },
       "id": 4,
       "options": {
@@ -470,8 +624,8 @@
       "gridPos": {
         "h": 8,
         "w": 18,
-        "x": 6,
-        "y": 8
+        "x": 0,
+        "y": 10
       },
       "id": 5,
       "options": {
@@ -524,6 +678,13 @@
                   }
                 },
                 "fieldName": "data"
+              },
+              {
+                "config": {
+                  "id": "isNull",
+                  "options": {}
+                },
+                "fieldName": "time"
               }
             ],
             "match": "any",
@@ -565,8 +726,8 @@
       {
         "current": {
           "selected": false,
-          "text": "127.0.0.1-80",
-          "value": "127.0.0.1-80"
+          "text": "172.0.0.1-80",
+          "value": "172.0.0.1-80"
         },
         "hide": 0,
         "label": "IP Address  / Range / Network",
@@ -574,17 +735,17 @@
         "options": [
           {
             "selected": true,
-            "text": "127.0.0.1-80",
-            "value": "127.0.0.1-80"
+            "text": "172.0.0.1-80",
+            "value": "172.0.0.1-80"
           }
         ],
-        "query": "127.0.0.1-80",
+        "query": "172.0.0.1-80",
         "skipUrlSync": false,
         "type": "textbox"
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "",
           "value": ""
         },
@@ -605,7 +766,7 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
@@ -626,6 +787,6 @@
   "timezone": "browser",
   "title": "Scan LAN",
   "uid": "fdji9hxaigd1cc",
-  "version": 4,
+  "version": 30,
   "weekStart": ""
 }
