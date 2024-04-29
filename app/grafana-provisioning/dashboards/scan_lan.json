@@ -18,6 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 2,
   "links": [],
   "liveNow": true,
   "panels": [
@@ -686,7 +687,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {
-            "align": "auto",
+            "align": "left",
             "cellOptions": {
               "type": "auto"
             },
@@ -818,14 +819,21 @@
       "title": "Panel Title",
       "transformations": [
         {
-          "id": "filterFieldsByName",
+          "id": "extractFields",
           "options": {
-            "include": {
-              "names": [
-                "data",
-                "tag"
-              ]
-            }
+            "format": "json",
+            "jsonPaths": [
+              {
+                "alias": "Address",
+                "path": "Address"
+              },
+              {
+                "alias": "Ports",
+                "path": "Port"
+              }
+            ],
+            "replace": true,
+            "source": "data"
           }
         }
       ],
@@ -901,6 +909,6 @@
   "timezone": "browser",
   "title": "Scan LAN",
   "uid": "fdji9hxaigd1cc",
-  "version": 10,
+  "version": 36,
   "weekStart": ""
 }
