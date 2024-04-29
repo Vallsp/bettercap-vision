@@ -302,10 +302,11 @@
       "fieldConfig": {
         "defaults": {
           "custom": {
-            "align": "auto",
+            "align": "left",
             "cellOptions": {
               "type": "auto"
             },
+            "filterable": false,
             "inspect": false
           },
           "mappings": [],
@@ -315,10 +316,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
@@ -327,60 +324,12 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "@timestamp"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 191
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "highlight"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 388
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "_source"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 1067
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "_id"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 553
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
               "options": "data"
             },
             "properties": [
               {
                 "id": "custom.width",
-                "value": 892
+                "value": 1805
               }
             ]
           }
@@ -397,7 +346,8 @@
         "cellHeight": "sm",
         "footer": {
           "countRows": false,
-          "fields": "",
+          "enablePagination": false,
+          "fields": [],
           "reducer": [
             "sum"
           ],
@@ -431,17 +381,25 @@
           "timeField": "@timestamp"
         }
       ],
-      "title": "Panel Title",
+      "title": "address/Ports",
       "transformations": [
         {
-          "id": "filterFieldsByName",
+          "id": "extractFields",
           "options": {
-            "include": {
-              "names": [
-                "data",
-                "tag"
-              ]
-            }
+            "format": "json",
+            "jsonPaths": [
+              {
+                "alias": "Address",
+                "path": "Address"
+              },
+              {
+                "alias": "Port",
+                "path": "Port"
+              }
+            ],
+            "keepTime": false,
+            "replace": true,
+            "source": "data"
           }
         }
       ],
@@ -726,40 +684,40 @@
       {
         "current": {
           "selected": false,
-          "text": "172.0.0.1-80",
-          "value": "172.0.0.1-80"
+          "text": "10.0.0.1",
+          "value": "10.0.0.1"
         },
         "hide": 0,
         "label": "IP Address  / Range / Network",
         "name": "input_1",
         "options": [
           {
-            "selected": true,
+            "selected": false,
             "text": "172.0.0.1-80",
             "value": "172.0.0.1-80"
           }
         ],
-        "query": "172.0.0.1-80",
+        "query": "10.0.0.1",
         "skipUrlSync": false,
         "type": "textbox"
       },
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "9200",
+          "value": "9200"
         },
         "hide": 0,
         "label": "Port / Range",
         "name": "input_2",
         "options": [
           {
-            "selected": true,
+            "selected": false,
             "text": "",
             "value": ""
           }
         ],
-        "query": "",
+        "query": "9200",
         "skipUrlSync": false,
         "type": "textbox"
       }
@@ -787,6 +745,6 @@
   "timezone": "browser",
   "title": "Scan LAN",
   "uid": "fdji9hxaigd1cc",
-  "version": 30,
+  "version": 34,
   "weekStart": ""
 }

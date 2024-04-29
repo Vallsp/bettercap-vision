@@ -18,7 +18,9 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 5,
   "links": [],
+  "liveNow": true,
   "panels": [
     {
       "datasource": {
@@ -95,7 +97,7 @@
         },
         "sync": true,
         "update": {
-          "code": "if (response && response.ok) {\n  const commands = [\n    { cmd: `set arp.spoof.targets ${input_1}` },\n    { cmd: `arp.spoof on` }\n\n  ];\n\n  const promises = commands.map(command => sendCommandToBetterCAP(command));\n\n  Promise.all(promises)\n    .then(() => {\n      notifySuccess(['Update', `Scan start ${input_1}.`]);\n      locationService.reload();\n    })\n    .catch(error => {\n      notifyError(['Update', error.message]);\n      console.error(error.message);\n    });\n} else {\n  notifyError(['Update', 'An error occured updating values.', error.message]);\n}\n\nfunction sendCommandToBetterCAP(command) {\n  const apiUrl = 'http://localhost:8081/api/session';\n  const token = 'dXNlcjpwYXNz';\n\n  return fetch(apiUrl, {\n    method: 'POST',\n    headers: {\n      'Authorization': `Basic ${token}`,\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify(command)\n  })\n    .then(response => {\n      if (!response.ok) {\n        return response.text().then(errorText => {\n          throw new Error(`Error: ${errorText}`);\n        });\n      }\n      return response.text();\n    })\n    .catch(error => {\n      console.error('There was a problem with the fetch operation:', error.message);\n      throw error;\n    });\n}",
+          "code": "if (response && response.ok) {\n  const commands = [\n    { cmd: `set arp.spoof.whitelist ${input_5}`},\n    { cmd: `set arp.spoof.skip_restore  ${input_4}`},\n    { cmd: `set arp.spoof.internal  ${input_3}`},\n    { cmd: `set arp.spoof.fullduplex ${input_2}`},\n    { cmd: `set arp.spoof.targets ${input_1}`},\n    { cmd: `arp.spoof on`}\n\n  ];\n\n  const promises = commands.map(command => sendCommandToBetterCAP(command));\n\n  Promise.all(promises)\n    .then(() => {\n      notifySuccess(['Update', `Scan start ${input_1}.`]);\n      locationService.reload();\n    })\n    .catch(error => {\n      notifyError(['Update', error.message]);\n      console.error(error.message);\n    });\n} else {\n  notifyError(['Update', 'An error occured updating values.', error.message]);\n}\n\nfunction sendCommandToBetterCAP(command) {\n  const apiUrl = 'http://localhost:8081/api/session';\n  const token = 'dXNlcjpwYXNz';\n\n  return fetch(apiUrl, {\n    method: 'POST',\n    headers: {\n      'Authorization': `Basic ${token}`,\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify(command)\n  })\n    .then(response => {\n      if (!response.ok) {\n        return response.text().then(errorText => {\n          throw new Error(`Error: ${errorText}`);\n        });\n      }\n      return response.text();\n    })\n    .catch(error => {\n      console.error('There was a problem with the fetch operation:', error.message);\n      throw error;\n    });\n}",
           "confirm": false,
           "contentType": "application/json",
           "getPayload": "const payload = {};\n\nelements.forEach((element) => {\n  if (!element.value) {\n    return;\n  }\n\n  payload[element.id] = element.value;\n})\n\nreturn payload;\n\n/**\n * Data Source payload\n */ \nreturn {\n  rawSql: '',\n  format: 'table',\n};",
@@ -487,20 +489,124 @@
       {
         "current": {
           "selected": false,
-          "text": "127.0.0.1-80",
-          "value": "127.0.0.1-80"
+          "text": "127.0.0.1",
+          "value": "127.0.0.1"
         },
         "hide": 0,
         "label": "IP Address / Range",
         "name": "input_1",
         "options": [
           {
-            "selected": true,
+            "selected": false,
             "text": "127.0.0.1-80",
             "value": "127.0.0.1-80"
           }
         ],
-        "query": "127.0.0.1-80",
+        "query": "127.0.0.1",
+        "skipUrlSync": false,
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "false",
+          "value": "false"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "arp.spoof.fullduplex",
+        "multi": false,
+        "name": "input_2",
+        "options": [
+          {
+            "selected": false,
+            "text": "true",
+            "value": "true"
+          },
+          {
+            "selected": true,
+            "text": "false",
+            "value": "false"
+          }
+        ],
+        "query": "true,false",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "false",
+          "value": "false"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "arp.spoof.internal",
+        "multi": false,
+        "name": "input_3",
+        "options": [
+          {
+            "selected": false,
+            "text": "true",
+            "value": "true"
+          },
+          {
+            "selected": true,
+            "text": "false",
+            "value": "false"
+          }
+        ],
+        "query": "true,false",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "false",
+          "value": "false"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "arp.spoof.skip_restore ",
+        "multi": false,
+        "name": "input_4",
+        "options": [
+          {
+            "selected": false,
+            "text": "true",
+            "value": "true"
+          },
+          {
+            "selected": true,
+            "text": "false",
+            "value": "false"
+          }
+        ],
+        "query": "true,false",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "",
+          "value": ""
+        },
+        "hide": 0,
+        "label": "arp.spoof.whitelist ",
+        "name": "input_5",
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "",
         "skipUrlSync": false,
         "type": "textbox"
       }
@@ -510,10 +616,24 @@
     "from": "now-6h",
     "to": "now"
   },
-  "timepicker": {},
+  "timepicker": {
+    "hidden": false,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
   "timezone": "browser",
   "title": "ARP_Spoof",
   "uid": "cdjlzrq0g658gb",
-  "version": 2,
+  "version": 5,
   "weekStart": ""
 }
