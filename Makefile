@@ -1,5 +1,5 @@
 COMPOSE := -f docker-compose.yaml
-SERVICES          := grafana bettercap elasticsearch logstash nginx
+SERVICES := grafana bettercap elasticsearch logstash nginx
 
 # --------------------------
 

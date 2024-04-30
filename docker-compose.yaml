@@ -9,6 +9,7 @@ services:
       - GF_ELASTICSEARCH_URL=http://elasticsearch:9200
       - GF_ELASTICSEARCH_INDEX=@timestamp
       - GF_INSTALL_PLUGINS=volkovlabs-form-panel
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
     volumes:
       - grafana-storage:/var/lib/grafana
       - ./app/grafana-provisioning/:/etc/grafana/provisioning
@@ -42,7 +43,7 @@ services:
       - discovery.type=single-node
        # Paramètres de sécurité Elasticsearch
       - xpack.security.enabled=true
-      - ELASTIC_PASSWORD=P@55aran
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
       - xpack.security.authc.api_key.enabled=true
 
   logstash:
@@ -59,7 +60,7 @@ services:
       - ELASTICSEARCH_HOST=elasticsearch
       - ELASTICSEARCH_PORT=9200
       - ELASTICSEARCH_USER=elastic
-      - ELASTICSEARCH_PASSWORD=P@55aran
+      - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD}
       - ELASTICSEARCH_SSL_ENABLED=true
       - ELASTICSEARCH_SSL_VERIFICATION_MODE=false
     depends_on:
