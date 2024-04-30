@@ -73,11 +73,21 @@ services:
       - '443:443'
       - '80:80'
     volumes:
-      - ./app/nginx/conf.d:/etc/nginx/conf.d
-      - ./app/nginx/certs:/etc/nginx/certs
+      - ./app/nginx/conf.d:/etc/nginx/conf.d    
+    secrets:
+      - source: selfsigned.crt
+        target: /etc/nginx/certs/selfsigned.crt
+      - source: selfsigned.key
+        target: /etc/nginx/certs/selfsigned.key
     depends_on:
       - grafana
 
 volumes:
   grafana-storage:
   elasticsearch-storage:
+
+secrets:
+  selfsigned.crt:
+    file: ./secrets/certs/selfsigned.crt
+  selfsigned.key:
+    file: ./secrets/certs/selfsigned.key

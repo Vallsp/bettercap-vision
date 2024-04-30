@@ -1,0 +1,5 @@
+services:
+  certs:
+    build: ./certs
+    volumes:
+      - ./secrets/certs:/certs:rw
