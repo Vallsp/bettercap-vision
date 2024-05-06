@@ -18,7 +18,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 16,
   "links": [],
   "liveNow": true,
   "panels": [
@@ -299,56 +298,36 @@
         "type": "elasticsearch",
         "uid": "P31C819B24CF3C3C7"
       },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": []
-        },
-        "overrides": []
-      },
       "gridPos": {
-        "h": 11,
+        "h": 5,
         "w": 11,
         "x": 12,
         "y": 0
       },
-      "id": 7,
+      "id": 9,
       "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true,
-          "values": [
-            "value"
-          ]
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
         },
-        "pieType": "pie",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "content": "<table>\n<thead>\n<tr>\n<th>parameter</th>\n<th>default</th>\n<th>description</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>syn.scan.show-progress-every</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td><code>1</code></td>\n<td>Period in seconds for the scanning progress reporting.</td>\n</tr>\n</tbody>\n</table>",
+        "mode": "html"
       },
       "pluginVersion": "10.4.1",
       "targets": [
         {
           "alias": "",
-          "bucketAggs": [],
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto"
+              },
+              "type": "date_histogram"
+            }
+          ],
           "datasource": {
             "type": "elasticsearch",
             "uid": "P31C819B24CF3C3C7"
@@ -356,10 +335,7 @@
           "metrics": [
             {
               "id": "1",
-              "settings": {
-                "limit": "500"
-              },
-              "type": "logs"
+              "type": "count"
             }
           ],
           "query": "",
@@ -367,47 +343,9 @@
           "timeField": "@timestamp"
         }
       ],
-      "title": "Panel Title",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "keepTime": false,
-            "replace": false,
-            "source": "data"
-          }
-        },
-        {
-          "id": "filterFieldsByName",
-          "options": {
-            "include": {
-              "names": [
-                "Port",
-                "Address"
-              ]
-            }
-          }
-        },
-        {
-          "id": "filterByValue",
-          "options": {
-            "filters": [
-              {
-                "config": {
-                  "id": "greater",
-                  "options": {
-                    "value": 0
-                  }
-                },
-                "fieldName": "Port"
-              }
-            ],
-            "match": "any",
-            "type": "include"
-          }
-        }
-      ],
-      "type": "piechart"
+      "title": "Parameters",
+      "transparent": true,
+      "type": "text"
     },
     {
       "datasource": {
@@ -551,111 +489,48 @@
       },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
           "custom": {
-            "align": "left",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
           },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
+          "mappings": []
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "@timestamp"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 191
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "highlight"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 388
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "_source"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 1067
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "_id"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 553
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "data"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 563
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 11,
         "w": 11,
         "x": 12,
-        "y": 11
+        "y": 5
       },
-      "id": 6,
+      "id": 7,
       "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "values": [
+            "value"
+          ]
         },
-        "frameIndex": 1,
-        "showHeader": true,
-        "sortBy": []
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
       "pluginVersion": "10.4.1",
       "targets": [
@@ -666,7 +541,6 @@
             "type": "elasticsearch",
             "uid": "P31C819B24CF3C3C7"
           },
-          "hide": false,
           "metrics": [
             {
               "id": "1",
@@ -676,8 +550,8 @@
               "type": "logs"
             }
           ],
-          "query": "syn.scan",
-          "refId": "B",
+          "query": "",
+          "refId": "A",
           "timeField": "@timestamp"
         }
       ],
@@ -686,23 +560,42 @@
         {
           "id": "extractFields",
           "options": {
-            "format": "json",
-            "jsonPaths": [
+            "keepTime": false,
+            "replace": false,
+            "source": "data"
+          }
+        },
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "Port",
+                "Address"
+              ]
+            }
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
               {
-                "alias": "Address",
-                "path": "Address"
-              },
-              {
-                "alias": "Ports",
-                "path": "Port"
+                "config": {
+                  "id": "greater",
+                  "options": {
+                    "value": 0
+                  }
+                },
+                "fieldName": "Port"
               }
             ],
-            "replace": true,
-            "source": "data"
+            "match": "any",
+            "type": "include"
           }
         }
       ],
-      "type": "table"
+      "type": "piechart"
     },
     {
       "datasource": {
@@ -887,6 +780,166 @@
                 "field": "time"
               }
             ]
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "P31C819B24CF3C3C7"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "@timestamp"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 191
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "highlight"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 388
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "_source"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 1067
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "_id"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 553
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "data"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 563
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 11,
+        "x": 12,
+        "y": 16
+      },
+      "id": 6,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "P31C819B24CF3C3C7"
+          },
+          "hide": false,
+          "metrics": [
+            {
+              "id": "1",
+              "settings": {
+                "limit": "500"
+              },
+              "type": "logs"
+            }
+          ],
+          "query": "syn.scan",
+          "refId": "B",
+          "timeField": "@timestamp"
+        }
+      ],
+      "title": "Panel Title",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "jsonPaths": [
+              {
+                "alias": "Address",
+                "path": "Address"
+              },
+              {
+                "alias": "Ports",
+                "path": "Port"
+              }
+            ],
+            "replace": true,
+            "source": "data"
           }
         }
       ],
