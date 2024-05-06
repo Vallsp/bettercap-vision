@@ -1,0 +1,497 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 5,
+    "links": [],
+    "liveNow": true,
+    "panels": [
+      {
+        "datasource": {
+          "type": "elasticsearch",
+          "uid": "P31C819B24CF3C3C7"
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 4,
+          "x": 0,
+          "y": 0
+        },
+        "id": 2,
+        "options": {
+          "buttonGroup": {
+            "orientation": "center",
+            "size": "lg"
+          },
+          "confirmModal": {
+            "body": "Please confirm to update changed values",
+            "cancel": "Cancel",
+            "columns": {
+              "include": [
+                "name",
+                "oldValue",
+                "newValue"
+              ],
+              "name": "Label",
+              "newValue": "New Value",
+              "oldValue": "Old Value"
+            },
+            "confirm": "Confirm",
+            "title": "Confirm update request"
+          },
+          "elementValueChanged": "",
+          "elements": [
+            {
+              "hidden": false,
+              "id": "input_1",
+              "labelWidth": 25,
+              "section": "",
+              "showIf": "",
+              "title": "Adresse IP / range / reseaux",
+              "tooltip": "",
+              "type": "string",
+              "uid": "b74f0b12-c81a-43c8-bc96-a3e00186793c",
+              "unit": "",
+              "value": ""
+            },
+            {
+              "hidden": false,
+              "id": "input_2",
+              "labelWidth": 25,
+              "section": "",
+              "showIf": "",
+              "title": "ports / range port",
+              "tooltip": "",
+              "type": "string",
+              "uid": "16481e35-7687-4503-8d9c-4bfb0a7b74dc",
+              "unit": "",
+              "value": ""
+            }
+          ],
+          "initial": {
+            "code": "console.log(data, response, initial, elements);\n\nreturn;\n\n/**\n * Data Source\n * Requires form elements to be defined\n */\nconst dataQuery = toDataQueryResponse(response);\nconsole.log(dataQuery);",
+            "contentType": "application/json",
+            "getPayload": "return {\n  rawSql: '',\n  format: 'table',\n}",
+            "highlight": false,
+            "highlightColor": "red",
+            "method": "-"
+          },
+          "layout": {
+            "orientation": "horizontal",
+            "padding": 10,
+            "variant": "none"
+          },
+          "reset": {
+            "backgroundColor": "purple",
+            "foregroundColor": "yellow",
+            "icon": "process",
+            "text": "Reset",
+            "variant": "hidden"
+          },
+          "resetAction": {
+            "code": "if (response && response.ok) {\n  notifySuccess(['Update', 'Values updated successfully.']);\n  locationService.reload();\n} else {\n  notifyError(['Update', 'An error occured updating values.']);\n}",
+            "confirm": false,
+            "getPayload": "return {\n  rawSql: '',\n  format: 'table',\n}",
+            "mode": "initial"
+          },
+          "saveDefault": {
+            "icon": "save",
+            "text": "Save Default",
+            "variant": "hidden"
+          },
+          "submit": {
+            "backgroundColor": "purple",
+            "foregroundColor": "yellow",
+            "icon": "capture",
+            "text": "Start scan",
+            "variant": "primary"
+          },
+          "sync": true,
+          "update": {
+            "code": "if (response && response.ok) {\n  const commands = [\n    { cmd: `wol.eth ${input_2}` },\n    { cmd: `set events.stream.output /app/events.log` }\n\n  ];\n\n  const promises = commands.map(command => sendCommandToBetterCAP(command));\n\n  Promise.all(promises)\n    .then(() => {\n      notifySuccess(['Update', `Wol start on ${input_2}.`]);\n      locationService.reload();\n    })\n    .catch(error => {\n      notifyError(['Update', error.message]);\n      console.error(error.message);\n    });\n} else {\n  notifyError(['Update', 'An error occured updating values.', error.message]);\n}\n\nfunction sendCommandToBetterCAP(command) {\n  const apiUrl = 'http://localhost:8081/api/session';\n  const token = 'dXNlcjpwYXNz';\n\n  return fetch(apiUrl, {\n    method: 'POST',\n    headers: {\n      'Authorization': `Basic ${token}`,\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify(command)\n  })\n    .then(response => {\n      if (!response.ok) {\n        return response.text().then(errorText => {\n          throw new Error(`Error: ${errorText}`);\n        });\n      }\n      return response.text();\n    })\n    .catch(error => {\n      console.error('There was a problem with the fetch operation:', error.message);\n      throw error;\n    });\n}",
+            "confirm": false,
+            "contentType": "application/json",
+            "getPayload": "const payload = {};\n\nelements.forEach((element) => {\n  if (!element.value) {\n    return;\n  }\n\n  payload[element.id] = element.value;\n})\n\nreturn payload;\n\n/**\n * Data Source payload\n */ \nreturn {\n  rawSql: '',\n  format: 'table',\n};",
+            "header": [
+              {
+                "name": "Authorization",
+                "value": "Basic dXNlcjpwYXNz"
+              }
+            ],
+            "method": "POST",
+            "payloadMode": "all",
+            "url": "http://localhost:8081/api/session"
+          },
+          "updateEnabled": "auto"
+        },
+        "pluginVersion": "3.7.0",
+        "targets": [
+          {
+            "alias": "",
+            "bucketAggs": [
+              {
+                "field": "@timestamp",
+                "id": "2",
+                "settings": {
+                  "interval": "auto"
+                },
+                "type": "date_histogram"
+              }
+            ],
+            "datasource": {
+              "type": "elasticsearch",
+              "uid": "P31C819B24CF3C3C7"
+            },
+            "metrics": [
+              {
+                "id": "1",
+                "type": "count"
+              }
+            ],
+            "query": "",
+            "refId": "A",
+            "timeField": "@timestamp"
+          }
+        ],
+        "transparent": true,
+        "type": "volkovlabs-form-panel"
+      },
+      {
+        "datasource": {
+          "type": "elasticsearch",
+          "uid": "P31C819B24CF3C3C7"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 8,
+          "x": 4,
+          "y": 0
+        },
+        "id": 4,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "sum"
+            ],
+            "fields": "/^Count$/",
+            "values": false
+          },
+          "showPercentChange": false,
+          "textMode": "auto",
+          "wideLayout": true
+        },
+        "pluginVersion": "10.4.1",
+        "targets": [
+          {
+            "alias": "",
+            "bucketAggs": [
+              {
+                "field": "@timestamp",
+                "id": "2",
+                "settings": {
+                  "interval": "auto"
+                },
+                "type": "date_histogram"
+              }
+            ],
+            "datasource": {
+              "type": "elasticsearch",
+              "uid": "P31C819B24CF3C3C7"
+            },
+            "metrics": [
+              {
+                "id": "1",
+                "type": "count"
+              }
+            ],
+            "query": "",
+            "refId": "A",
+            "timeField": "@timestamp"
+          }
+        ],
+        "title": "Panel Title",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "elasticsearch",
+          "uid": "P31C819B24CF3C3C7"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "@timestamp"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 191
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "highlight"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 388
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "_source"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 1067
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "_id"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 553
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "data"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 501
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 6
+        },
+        "id": 5,
+        "options": {
+          "cellHeight": "sm",
+          "footer": {
+            "countRows": false,
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "showHeader": true,
+          "sortBy": []
+        },
+        "pluginVersion": "10.4.1",
+        "targets": [
+          {
+            "alias": "",
+            "bucketAggs": [],
+            "datasource": {
+              "type": "elasticsearch",
+              "uid": "P31C819B24CF3C3C7"
+            },
+            "metrics": [
+              {
+                "id": "1",
+                "settings": {
+                  "limit": "500"
+                },
+                "type": "logs"
+              }
+            ],
+            "query": "sys.log",
+            "refId": "A",
+            "timeField": "@timestamp"
+          }
+        ],
+        "title": "Panel Title",
+        "transformations": [
+          {
+            "id": "filterByValue",
+            "options": {
+              "filters": [
+                {
+                  "config": {
+                    "id": "regex",
+                    "options": {
+                      "value": ".*wol.*"
+                    }
+                  },
+                  "fieldName": "data"
+                },
+                {
+                  "config": {
+                    "id": "isNull",
+                    "options": {}
+                  },
+                  "fieldName": "time"
+                }
+              ],
+              "match": "any",
+              "type": "include"
+            }
+          },
+          {
+            "id": "filterFieldsByName",
+            "options": {
+              "include": {
+                "names": [
+                  "data",
+                  "time"
+                ]
+              }
+            }
+          },
+          {
+            "id": "sortBy",
+            "options": {
+              "fields": {},
+              "sort": [
+                {
+                  "desc": true,
+                  "field": "time"
+                }
+              ]
+            }
+          }
+        ],
+        "type": "table"
+      }
+    ],
+    "refresh": "5s",
+    "schemaVersion": 39,
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "selected": false,
+            "text": "0 9000",
+            "value": "0 9000"
+          },
+          "hide": 0,
+          "label": "Mac address",
+          "name": "input_2",
+          "options": [
+            {
+              "selected": true,
+              "text": "",
+              "value": ""
+            }
+          ],
+          "query": "FF:FF:FF:FF:FF:FF",
+          "skipUrlSync": false,
+          "type": "textbox"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-30m",
+      "to": "now"
+    },
+    "timepicker": {
+      "refresh_intervals": [
+        "1s",
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ]
+    },
+    "timezone": "browser",
+    "title": "Wake-on-LAN",
+    "uid": "fdkv9uvn4luyoc",
+    "version": 5,
+    "weekStart": ""
+  }
