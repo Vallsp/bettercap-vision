@@ -25,7 +25,7 @@ The project is structured to use Docker containers for easy setup and portabilit
 - **docker-compose.setup.yaml**: Found in `./docker-compose.yml`, this Docker Compose file sets up the `certs` container. (Used by `make certs`)
 - **Makefile**: Found in `./Makefile`, this Makefile contains all commands available.
 - **dashboard.yml**: Located at `./app/grafana-provisioning/dashboards/dashboard.yml`, this configuration file specifies the dashboard provider settings for Grafana.
-- **datasources.yml**: Found in `./app/grafana-provisioning/datasources/datasources.yml`, this file configures Grafana to use the Elasticsearch containers, collecting the logs from Logstash.
+- **datasources.yml**: Found in `./app/grafana-provisioning/datasources/datasources.yml`, this file configures Grafana to use Elasticsearch, collecting the logs from Logstash.
 - **main.conf**: Found in `./app/logstash/pipeline/main.conf`, this file configures Logstash to collect log data from Bettercap REST api.
 
 ## Usage
@@ -40,7 +40,8 @@ Follow these steps to deploy the environment:
 git clone https://github.com/vallsp/bettercap-vision
 ```
 
-2. **Generate certs (REQUIRED)**
+2. **Generate certs**
+**Required**
 
 A container will generate certificates for you :
 
@@ -56,7 +57,7 @@ Once your certificates are generated, use make to start the containers :
 make up
 ```
 
-4. **Accessing Grafana:**
+4. **Accessing Grafana**
 Once the containers are up and running, access the Grafana dashboard through your web browser:
 
 ```http://localhost```
@@ -74,3 +75,6 @@ Thanks to those projects :
 
 - Bettercap : https://github.com/bettercap/bettercap
 - Grafana : https://github.com/grafana/grafana
+- Logstash : https://github.com/elastic/logstash
+- Elasticsearch : https://github.com/elastic/elasticsearch
+- Nginx : https://github.com/nginx/nginx
