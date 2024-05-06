@@ -18,6 +18,7 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
+    "id": 21,
     "links": [],
     "panels": [
       {
@@ -26,8 +27,8 @@
           "uid": "P31C819B24CF3C3C7"
         },
         "gridPos": {
-          "h": 8,
-          "w": 12,
+          "h": 2,
+          "w": 3,
           "x": 0,
           "y": 0
         },
@@ -134,6 +135,59 @@
         ],
         "transparent": true,
         "type": "volkovlabs-form-panel"
+      },
+      {
+        "datasource": {
+          "type": "elasticsearch",
+          "uid": "P31C819B24CF3C3C7"
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 2
+        },
+        "id": 2,
+        "options": {
+          "code": {
+            "language": "plaintext",
+            "showLineNumbers": false,
+            "showMiniMap": false
+          },
+          "content": "<table>\n<thead>\n<tr>\n<th>parameter</th>\n<th>default</th>\n<th>description</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>tcp.port</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td><code>443</code></td>\n<td>TCP port to redirect when the proxy is activated.</td>\n</tr>\n<tr>\n<td><code>tcp.address</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td></td>\n<td><strong>Mandatory</strong> remote address of the TCP proxy.</td>\n</tr>\n<tr>\n<td><code>tcp.proxy.port</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td><code>8443</code></td>\n<td>Port to bind the TCP proxy to.</td>\n</tr>\n<tr>\n<td><code>tcp.proxy.address</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td><code>&lt;interface address&gt;</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td>Address to bind the TCP proxy to.</td>\n</tr>\n<tr>\n<td><code>tcp.proxy.script</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td></td>\n<td>Path of a proxy module script.</td>\n</tr>\n<tr>\n<td><code>tcp.tunnel.address</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td></td>\n<td>Address to redirect the TCP tunnel to (optional).</td>\n</tr>\n<tr>\n<td><code>tcp.tunnel.port</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td></td>\n<td>Port to redirect the TCP tunnel to (optional)</td>\n</tr>\n</tbody>\n</table>",
+          "mode": "html"
+        },
+        "pluginVersion": "10.4.1",
+        "targets": [
+          {
+            "alias": "",
+            "bucketAggs": [
+              {
+                "field": "@timestamp",
+                "id": "2",
+                "settings": {
+                  "interval": "auto"
+                },
+                "type": "date_histogram"
+              }
+            ],
+            "datasource": {
+              "type": "elasticsearch",
+              "uid": "P31C819B24CF3C3C7"
+            },
+            "metrics": [
+              {
+                "id": "1",
+                "type": "count"
+              }
+            ],
+            "query": "",
+            "refId": "A",
+            "timeField": "@timestamp"
+          }
+        ],
+        "transparent": true,
+        "type": "text"
       }
     ],
     "schemaVersion": 39,
@@ -148,6 +202,7 @@
     "timepicker": {},
     "timezone": "browser",
     "title": "HTTP.proxy",
-    "version": 0,
+    "uid": "edkw6uelbim80a",
+    "version": 1,
     "weekStart": ""
   }
