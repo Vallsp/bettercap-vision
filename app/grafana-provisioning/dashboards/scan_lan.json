@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 16,
   "links": [],
   "liveNow": true,
   "panels": [
@@ -658,8 +658,8 @@
           "options": {
             "include": {
               "names": [
-                "data",
-                "time"
+                "@timestamp",
+                "data"
               ]
             }
           }
@@ -848,47 +848,47 @@
       {
         "current": {
           "selected": false,
-          "text": "10.0.0.2",
-          "value": "10.0.0.2"
+          "text": "10.0.0.1",
+          "value": "10.0.0.1"
         },
         "hide": 0,
         "label": "IP Address  / Range / Network",
         "name": "input_1",
         "options": [
           {
-            "selected": true,
+            "selected": false,
             "text": "172.0.0.1-80",
             "value": "172.0.0.1-80"
           }
         ],
-        "query": "10.0.0.2",
+        "query": "10.0.0.1",
         "skipUrlSync": false,
         "type": "textbox"
       },
       {
         "current": {
           "selected": false,
-          "text": "0 9000",
-          "value": "0 9000"
+          "text": "0 500",
+          "value": "0 500"
         },
         "hide": 0,
         "label": "Port / Range",
         "name": "input_2",
         "options": [
           {
-            "selected": true,
+            "selected": false,
             "text": "",
             "value": ""
           }
         ],
-        "query": "0 9000",
+        "query": "0 500",
         "skipUrlSync": false,
         "type": "textbox"
       }
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
@@ -909,6 +909,6 @@
   "timezone": "browser",
   "title": "Scan LAN",
   "uid": "fdji9hxaigd1cc",
-  "version": 36,
+  "version": 2,
   "weekStart": ""
 }

@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
+  "id": 15,
   "links": [],
   "panels": [
     {
@@ -35,7 +35,7 @@
       "id": 1,
       "options": {
         "buttonGroup": {
-          "orientation": "left",
+          "orientation": "center",
           "size": "lg"
         },
         "confirmModal": {
@@ -55,7 +55,6 @@
           "title": "Confirm update request"
         },
         "elementValueChanged": "",
-        "elements": [],
         "initial": {
           "code": "console.log(data, response, initial, elements);\n\nreturn;\n\n/**\n * Data Source\n * Requires form elements to be defined\n */\nconst dataQuery = toDataQueryResponse(response);\nconsole.log(dataQuery);",
           "contentType": "application/json",
@@ -90,13 +89,13 @@
         "submit": {
           "backgroundColor": "purple",
           "foregroundColor": "yellow",
-          "icon": "arrow-right",
-          "text": "HTTP ON",
+          "icon": "angle-right",
+          "text": "Start",
           "variant": "primary"
         },
         "sync": true,
         "update": {
-          "code": "if (response && response.ok) {\n  const commands = [\n    { cmd: `set http.server.address ${Var_1}` },\n    { cmd: `set http.server.path ${Var_2}` },\n    { cmd: `set http.server.port ${Var_3}` },\n    { cmd: `http.server on` }\n    // Ajoutez vos autres commandes ici\n  ];\n\n  const promises = commands.map(command => sendCommandToBetterCAP(command));\n\n  Promise.all(promises)\n    .then(() => {\n      notifySuccess(['Update', `Serveur http start ${Var_1}:${Var_3}.`]);\n      locationService.reload();\n    })\n    .catch(error => {\n      notifyError(['Update', error.message]);\n      console.error( error.message);\n    });\n} else {\n  notifyError(['Update', 'An error occured updating values.']);\n}\n\nfunction sendCommandToBetterCAP(command) {\n  const apiUrl = 'http://localhost:8081/api/session';\n  const token = 'dXNlcjpwYXNz';\n\n  return fetch(apiUrl, {\n    method: 'POST',\n    headers: {\n      'Authorization': `Basic ${token}`,\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify(command)\n  })\n    .then(response => {\n      if (!response.ok) {\n        return response.text().then(errorText => {\n          throw new Error(`Error: ${errorText}`);\n        });\n      }\n      return response.text();\n    })\n    .catch(error => {\n      console.error('There was a problem with the fetch operation:', error.message);\n      throw error;\n    });\n}",
+          "code": "if (response && response.ok) {\n  const commands = [\n    { cmd: `set net.probe.throttle ${input_1}` },\n    { cmd: `set net.probe.mdns ${input_2}` },\n    { cmd: `set net.probe.nbns ${input_3}` },\n    { cmd: `set net.probe.upnp ${input_4}` },\n    { cmd: `set net.probe.wsd ${input_5}` },\n    { cmd: `net.probe on` }\n\n  ];\n\n  const promises = commands.map(command => sendCommandToBetterCAP(command));\n\n  Promise.all(promises)\n    .then(() => {\n      notifySuccess(['Update', `net.probe start.`]);\n      locationService.reload();\n    })\n    .catch(error => {\n      notifyError(['Update', error.message]);\n      console.error(error.message);\n    });\n} else {\n  notifyError(['Update', 'An error occured updating values.', error.message]);\n}\n\nfunction sendCommandToBetterCAP(command) {\n  const apiUrl = 'http://localhost:8081/api/session';\n  const token = 'dXNlcjpwYXNz';\n\n  return fetch(apiUrl, {\n    method: 'POST',\n    headers: {\n      'Authorization': `Basic ${token}`,\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify(command)\n  })\n    .then(response => {\n      if (!response.ok) {\n        return response.text().then(errorText => {\n          throw new Error(`Error: ${errorText}`);\n        });\n      }\n      return response.text();\n    })\n    .catch(error => {\n      console.error('There was a problem with the fetch operation:', error.message);\n      throw error;\n    });\n}",
           "confirm": false,
           "contentType": "application/json",
           "getPayload": "const payload = {};\n\nelements.forEach((element) => {\n  if (!element.value) {\n    return;\n  }\n\n  payload[element.id] = element.value;\n})\n\nreturn payload;\n\n/**\n * Data Source payload\n */ \nreturn {\n  rawSql: '',\n  format: 'table',\n};",
@@ -158,7 +157,7 @@
       "id": 2,
       "options": {
         "buttonGroup": {
-          "orientation": "left",
+          "orientation": "center",
           "size": "lg"
         },
         "confirmModal": {
@@ -212,13 +211,13 @@
         "submit": {
           "backgroundColor": "purple",
           "foregroundColor": "yellow",
-          "icon": "arrow-right",
-          "text": "HTTP OFF",
+          "icon": "angle-right",
+          "text": "STOP",
           "variant": "primary"
         },
         "sync": true,
         "update": {
-          "code": "if (response && response.ok) {\n  // Envoyer la commande à BetterCAP\n  sendCommandToBetterCAP()\n    .then(responseData => {\n      notifySuccess(['Update', 'Values updated successfully.']);\n      locationService.reload();\n    })\n    .catch(error => {\n      notifyError(['Update', 'An error occured updating values.', error.message]);\n      console.error('Error sending command to BetterCAP:', error.message);\n    });\n} else {\n  notifyError(['Update', 'An error occured updating values.']);\n}\n\nfunction sendCommandToBetterCAP() {\n  const apiUrl = 'http://localhost:8081/api/session'; // Remplacez par l'URL de l'API BetterCAP\n  const token = 'dXNlcjpwYXNz'; // Remplacez par votre token d'API\n\n  const command = {\n    cmd: 'http.server off'\n  };\n\n  return fetch(apiUrl, {\n    method: 'POST',\n    headers: {\n      'Authorization': `Basic ${token}`,\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify(command)\n  })\n    .then(response => {\n      if (!response.ok) {\n        return response.text().then(errorText => {\n          throw new Error(`Server responded with status: ${response.status}. Error: ${errorText}`);\n        });\n      }\n      return response.text(); // Utilisez response.text() pour obtenir le contenu textuel de la réponse\n    })\n    .catch(error => {\n      console.error('There was a problem with the fetch operation:', error.message);\n      throw error;\n    });\n}",
+          "code": "if (response && response.ok) {\n  const commands = [\n    { cmd: `net.probe off` }\n\n  ];\n\n  const promises = commands.map(command => sendCommandToBetterCAP(command));\n\n  Promise.all(promises)\n    .then(() => {\n      notifySuccess(['Update', `net.probe stop.`]);\n      locationService.reload();\n    })\n    .catch(error => {\n      notifyError(['Update', error.message]);\n      console.error(error.message);\n    });\n} else {\n  notifyError(['Update', 'An error occured updating values.', error.message]);\n}\n\nfunction sendCommandToBetterCAP(command) {\n  const apiUrl = 'http://localhost:8081/api/session';\n  const token = 'dXNlcjpwYXNz';\n\n  return fetch(apiUrl, {\n    method: 'POST',\n    headers: {\n      'Authorization': `Basic ${token}`,\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify(command)\n  })\n    .then(response => {\n      if (!response.ok) {\n        return response.text().then(errorText => {\n          throw new Error(`Error: ${errorText}`);\n        });\n      }\n      return response.text();\n    })\n    .catch(error => {\n      console.error('There was a problem with the fetch operation:', error.message);\n      throw error;\n    });\n}",
           "confirm": false,
           "contentType": "application/json",
           "getPayload": "const payload = {};\n\nelements.forEach((element) => {\n  if (!element.value) {\n    return;\n  }\n\n  payload[element.id] = element.value;\n})\n\nreturn payload;\n\n/**\n * Data Source payload\n */ \nreturn {\n  rawSql: '',\n  format: 'table',\n};",
@@ -298,12 +297,37 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "data"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 571
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "@timestamp"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 164
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 11,
+        "h": 7,
+        "w": 15,
+        "x": 9,
         "y": 0
       },
       "id": 3,
@@ -317,7 +341,8 @@
           ],
           "show": false
         },
-        "showHeader": true
+        "showHeader": true,
+        "sortBy": []
       },
       "pluginVersion": "10.4.1",
       "targets": [
@@ -352,7 +377,7 @@
                 "config": {
                   "id": "regex",
                   "options": {
-                    "value": ".*http\\.server.*"
+                    "value": ".*net.\\probe*"
                   }
                 },
                 "fieldName": "data"
@@ -367,7 +392,9 @@
           "options": {
             "include": {
               "names": [
-                "data"
+                "@timestamp",
+                "data",
+                "tag"
               ]
             }
           }
@@ -376,6 +403,7 @@
       "type": "table"
     }
   ],
+  "refresh": "5s",
   "schemaVersion": 39,
   "tags": [],
   "templating": {
@@ -383,73 +411,141 @@
       {
         "current": {
           "selected": false,
-          "text": "127.0.0.1",
-          "value": "127.0.0.1"
+          "text": "10",
+          "value": "10"
         },
         "hide": 0,
-        "label": "http.server.address ",
-        "name": "Var_1",
+        "label": "net.probe.throttle",
+        "name": "input_1",
         "options": [
           {
             "selected": true,
-            "text": "127.0.0.1",
-            "value": "127.0.0.1"
+            "text": "10",
+            "value": "10"
           }
         ],
-        "query": "127.0.0.1",
+        "query": "10",
         "skipUrlSync": false,
         "type": "textbox"
       },
       {
         "current": {
           "selected": false,
-          "text": "/usr/local/share/bettercap/ui",
-          "value": "/usr/local/share/bettercap/ui"
+          "text": "true",
+          "value": "true"
         },
         "hide": 0,
-        "label": "http.server.path",
-        "name": "Var_2",
+        "includeAll": false,
+        "label": "net.probe.mdns",
+        "multi": false,
+        "name": "input_2",
         "options": [
           {
             "selected": true,
-            "text": "/usr/local/share/bettercap/ui",
-            "value": "/usr/local/share/bettercap/ui"
+            "text": "true",
+            "value": "true"
+          },
+          {
+            "selected": false,
+            "text": "false",
+            "value": "false"
           }
         ],
-        "query": "/usr/local/share/bettercap/ui",
+        "query": "true,false",
         "skipUrlSync": false,
-        "type": "textbox"
+        "type": "custom"
       },
       {
         "current": {
           "selected": false,
-          "text": "8082",
-          "value": "8082"
+          "text": "true",
+          "value": "true"
         },
         "hide": 0,
-        "label": "http.server.port ",
-        "name": "Var_3",
+        "includeAll": false,
+        "label": "net.probe.nbns",
+        "multi": false,
+        "name": "input_3",
         "options": [
           {
             "selected": true,
-            "text": "8082",
-            "value": "8082"
+            "text": "true",
+            "value": "true"
+          },
+          {
+            "selected": false,
+            "text": "false",
+            "value": "false"
           }
         ],
-        "query": "8082",
+        "query": "true,false",
         "skipUrlSync": false,
-        "type": "textbox"
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "true",
+          "value": "true"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "net.probe.upnp",
+        "multi": false,
+        "name": "input_4",
+        "options": [
+          {
+            "selected": true,
+            "text": "true",
+            "value": "true"
+          },
+          {
+            "selected": false,
+            "text": "false",
+            "value": "false"
+          }
+        ],
+        "query": "true,false",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "true",
+          "value": "true"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "net.probe.wsd",
+        "multi": false,
+        "name": "input_5",
+        "options": [
+          {
+            "selected": true,
+            "text": "true",
+            "value": "true"
+          },
+          {
+            "selected": false,
+            "text": "false",
+            "value": "false"
+          }
+        ],
+        "query": "true,false",
+        "skipUrlSync": false,
+        "type": "custom"
       }
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "HTTP.server",
-  "uid": "edjh90w0izt34e",
-  "version": 72,
+  "title": "net.probe",
+  "uid": "adkv800cqn7k0f",
+  "version": 16,
   "weekStart": ""
 }
