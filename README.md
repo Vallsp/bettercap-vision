@@ -14,7 +14,7 @@ The project is structured to use Docker containers for easy setup and portabilit
 - **Grafana** for log visualization;
 - **Nginx** for the reverse proxying Grafana
 
-![infra](https://github.com/Vallsp/bettercap-vision/assets/145016532/4008b56e-15c8-4f53-818e-f0b4f874c845)
+![infra](https://github.com/Vallsp/bettercap-vision/assets/145016532/27b0d3ff-5bb0-4441-a7de-8176f558f4fc)
 
 ### File Structure
 
