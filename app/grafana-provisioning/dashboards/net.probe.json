@@ -27,7 +27,7 @@
         "uid": "P31C819B24CF3C3C7"
       },
       "gridPos": {
-        "h": 2,
+        "h": 3,
         "w": 3,
         "x": 0,
         "y": 0
@@ -149,7 +149,7 @@
         "uid": "P31C819B24CF3C3C7"
       },
       "gridPos": {
-        "h": 2,
+        "h": 3,
         "w": 3,
         "x": 3,
         "y": 0
@@ -217,7 +217,129 @@
         },
         "sync": true,
         "update": {
-          "code": "if (response && response.ok) {\n  const commands = [\n    { cmd: `net.probe off` }\n\n  ];\n\n  const promises = commands.map(command => sendCommandToBetterCAP(command));\n\n  Promise.all(promises)\n    .then(() => {\n      notifySuccess(['Update', `net.probe stop.`]);\n      locationService.reload();\n    })\n    .catch(error => {\n      notifyError(['Update', error.message]);\n      console.error(error.message);\n    });\n} else {\n  notifyError(['Update', 'An error occured updating values.', error.message]);\n}\n\nfunction sendCommandToBetterCAP(command) {\n  const apiUrl = 'http://localhost:8081/api/session';\n  const token = 'dXNlcjpwYXNz';\n\n  return fetch(apiUrl, {\n    method: 'POST',\n    headers: {\n      'Authorization': `Basic ${token}`,\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify(command)\n  })\n    .then(response => {\n      if (!response.ok) {\n        return response.text().then(errorText => {\n          throw new Error(`Error: ${errorText}`);\n        });\n      }\n      return response.text();\n    })\n    .catch(error => {\n      console.error('There was a problem with the fetch operation:', error.message);\n      throw error;\n    });\n}",
+          "code": "if (response && response.ok) {\n  const commands = [\n    { cmd: `net.recon off` },\n    { cmd: `net.probe off` }\n\n  ];\n\n  const promises = commands.map(command => sendCommandToBetterCAP(command));\n\n  Promise.all(promises)\n    .then(() => {\n      notifySuccess(['Update', `net.probe stop.`]);\n      locationService.reload();\n    })\n    .catch(error => {\n      notifyError(['Update', error.message]);\n      console.error(error.message);\n    });\n} else {\n  notifyError(['Update', 'An error occured updating values.', error.message]);\n}\n\nfunction sendCommandToBetterCAP(command) {\n  const apiUrl = 'http://localhost:8081/api/session';\n  const token = 'dXNlcjpwYXNz';\n\n  return fetch(apiUrl, {\n    method: 'POST',\n    headers: {\n      'Authorization': `Basic ${token}`,\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify(command)\n  })\n    .then(response => {\n      if (!response.ok) {\n        return response.text().then(errorText => {\n          throw new Error(`Error: ${errorText}`);\n        });\n      }\n      return response.text();\n    })\n    .catch(error => {\n      console.error('There was a problem with the fetch operation:', error.message);\n      throw error;\n    });\n}",
+          "confirm": false,
+          "contentType": "application/json",
+          "getPayload": "const payload = {};\n\nelements.forEach((element) => {\n  if (!element.value) {\n    return;\n  }\n\n  payload[element.id] = element.value;\n})\n\nreturn payload;\n\n/**\n * Data Source payload\n */ \nreturn {\n  rawSql: '',\n  format: 'table',\n};",
+          "header": [
+            {
+              "name": "Authorization",
+              "value": "Basic dXNlcjpwYXNz"
+            }
+          ],
+          "method": "POST",
+          "payloadMode": "all",
+          "url": "http://localhost:8081/api/session"
+        },
+        "updateEnabled": "auto"
+      },
+      "pluginVersion": "3.7.0",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto"
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "P31C819B24CF3C3C7"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "query": "",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "transparent": true,
+      "type": "volkovlabs-form-panel"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "P31C819B24CF3C3C7"
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 6,
+        "y": 0
+      },
+      "id": 5,
+      "options": {
+        "buttonGroup": {
+          "orientation": "center",
+          "size": "lg"
+        },
+        "confirmModal": {
+          "body": "Please confirm to update changed values",
+          "cancel": "Cancel",
+          "columns": {
+            "include": [
+              "name",
+              "oldValue",
+              "newValue"
+            ],
+            "name": "Label",
+            "newValue": "New Value",
+            "oldValue": "Old Value"
+          },
+          "confirm": "Confirm",
+          "title": "Confirm update request"
+        },
+        "elementValueChanged": "",
+        "initial": {
+          "code": "console.log(data, response, initial, elements);\n\nreturn;\n\n/**\n * Data Source\n * Requires form elements to be defined\n */\nconst dataQuery = toDataQueryResponse(response);\nconsole.log(dataQuery);",
+          "contentType": "application/json",
+          "getPayload": "return {\n  rawSql: '',\n  format: 'table',\n}",
+          "highlight": false,
+          "highlightColor": "red",
+          "method": "-"
+        },
+        "layout": {
+          "orientation": "horizontal",
+          "padding": 10,
+          "variant": "none"
+        },
+        "reset": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "process",
+          "text": "Reset",
+          "variant": "hidden"
+        },
+        "resetAction": {
+          "code": "if (response && response.ok) {\n  notifySuccess(['Update', 'Values updated successfully.']);\n  locationService.reload();\n} else {\n  notifyError(['Update', 'An error occured updating values.']);\n}",
+          "confirm": false,
+          "getPayload": "return {\n  rawSql: '',\n  format: 'table',\n}",
+          "mode": "initial"
+        },
+        "saveDefault": {
+          "icon": "save",
+          "text": "Save Default",
+          "variant": "hidden"
+        },
+        "submit": {
+          "backgroundColor": "purple",
+          "foregroundColor": "yellow",
+          "icon": "crosshair",
+          "text": "Reset",
+          "variant": "primary"
+        },
+        "sync": true,
+        "update": {
+          "code": "if (response && response.ok) {\n  const commands = [\n    { cmd: `net.show` }\n  ];\n\n  const promises = commands.map(command => sendCommandToBetterCAP(command));\n\n  Promise.all(promises)\n    .then(() => {\n      notifySuccess(['Update', `net.clear.`]);\n      locationService.reload();\n    })\n    .catch(error => {\n      notifyError(['Update', error.message]);\n      console.error(error.message);\n    });\n} else {\n  notifyError(['Update', 'An error occured updating values.', error.message]);\n}\n\nfunction sendCommandToBetterCAP(command) {\n  const apiUrl = 'http://localhost:8081/api/session';\n  const token = 'dXNlcjpwYXNz';\n\n  return fetch(apiUrl, {\n    method: 'POST',\n    headers: {\n      'Authorization': `Basic ${token}`,\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify(command)\n  })\n    .then(response => {\n      if (!response.ok) {\n        return response.text().then(errorText => {\n          throw new Error(`Error: ${errorText}`);\n        });\n      }\n      return response.text();\n    })\n    .catch(error => {\n      console.error('There was a problem with the fetch operation:', error.message);\n      throw error;\n    });\n}",
           "confirm": false,
           "contentType": "application/json",
           "getPayload": "const payload = {};\n\nelements.forEach((element) => {\n  if (!element.value) {\n    return;\n  }\n\n  payload[element.id] = element.value;\n})\n\nreturn payload;\n\n/**\n * Data Source payload\n */ \nreturn {\n  rawSql: '',\n  format: 'table',\n};",
@@ -306,6 +428,166 @@
             "properties": [
               {
                 "id": "custom.width",
+                "value": 517
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 15,
+        "x": 9,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "P31C819B24CF3C3C7"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "settings": {
+                "limit": "500"
+              },
+              "type": "logs"
+            }
+          ],
+          "query": "",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "title": "Panel Title",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "@timestamp",
+                "data",
+                "tag"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "P31C819B24CF3C3C7"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 9,
+        "x": 0,
+        "y": 3
+      },
+      "id": 6,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<h5>When activated, this module will send different types of probe packets to each IP in the current subnet in order for the net.recon module to detect them.</h5>\n\n<table>\n<thead>\n<tr>\n<th>parameter</th>\n<th>default</th>\n<th>description</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>net.probe.throttle</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td><code>10</code></td>\n<td>If greater than 0, probe packets will be throttled by this value in milliseconds.</td>\n</tr>\n<tr>\n<td><code>net.probe.mdns</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td><code>true</code></td>\n<td>Enable mDNS discovery probes.</td>\n</tr>\n<tr>\n<td><code>net.probe.nbns</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td><code>true</code></td>\n<td>Enable NetBIOS name system (NBNS) discovery probes.</td>\n</tr>\n<tr>\n<td><code>net.probe.upnp</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td><code>true</code></td>\n<td>Enable UPnP discovery probes.</td>\n</tr>\n<tr>\n<td><code>net.probe.wsd</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td><code>true</code></td>\n<td>Enable WSD discovery probes.</td>\n</tr>\n</tbody>\n</table>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto"
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "P31C819B24CF3C3C7"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "query": "",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "P31C819B24CF3C3C7"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "data"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
                 "value": 571
               }
             ]
@@ -328,7 +610,7 @@
         "h": 7,
         "w": 15,
         "x": 9,
-        "y": 0
+        "y": 8
       },
       "id": 3,
       "options": {
@@ -539,13 +821,13 @@
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "net.probe",
   "uid": "adkv800cqn7k0f",
-  "version": 16,
+  "version": 24,
   "weekStart": ""
 }

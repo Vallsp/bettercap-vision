@@ -298,7 +298,20 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "data"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 511
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -317,7 +330,8 @@
           ],
           "show": false
         },
-        "showHeader": true
+        "showHeader": true,
+        "sortBy": []
       },
       "pluginVersion": "10.4.1",
       "targets": [
@@ -367,15 +381,72 @@
           "options": {
             "include": {
               "names": [
-                "data"
+                "data",
+                "tag",
+                "@timestamp"
               ]
             }
           }
         }
       ],
       "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "P31C819B24CF3C3C7"
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 11,
+        "x": 0,
+        "y": 2
+      },
+      "id": 4,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<table>\n<thead>\n<tr>\n<th>parameter</th>\n<th>default</th>\n<th>description</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>http.server.address</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td>127.0.0.1</td>\n<td>Address to bind the http server to.</td>\n</tr>\n<tr>\n<td><code>http.server.path</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td>/usr/local/share/bettercap/ui</td>\n<td>Server folder.</td>\n</tr>\n<tr>\n<td><code>http.server.port</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td>8082</td>\n<td>Port to bind the http server to.</td>\n</tr>\n</tbody>\n</table>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto"
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "P31C819B24CF3C3C7"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "query": "",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "title": "Parameters",
+      "transparent": true,
+      "type": "text"
     }
   ],
+  "refresh": "auto",
   "schemaVersion": 39,
   "tags": [],
   "templating": {
@@ -386,6 +457,7 @@
           "text": "127.0.0.1",
           "value": "127.0.0.1"
         },
+        "description": "Address to bind the http server to.",
         "hide": 0,
         "label": "http.server.address ",
         "name": "Var_1",
@@ -406,6 +478,7 @@
           "text": "/usr/local/share/bettercap/ui",
           "value": "/usr/local/share/bettercap/ui"
         },
+        "description": "Server folder.",
         "hide": 0,
         "label": "http.server.path",
         "name": "Var_2",
@@ -426,6 +499,7 @@
           "text": "8082",
           "value": "8082"
         },
+        "description": "Port to bind the http server to.",
         "hide": 0,
         "label": "http.server.port ",
         "name": "Var_3",
@@ -443,13 +517,13 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "HTTP.server",
   "uid": "edjh90w0izt34e",
-  "version": 72,
+  "version": 75,
   "weekStart": ""
 }

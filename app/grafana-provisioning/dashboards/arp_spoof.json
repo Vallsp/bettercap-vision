@@ -15,9 +15,11 @@
       }
     ]
   },
+  "description": "This module keeps spoofing selected hosts on the network using crafted ARP packets in order to perform a MITM attack.",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 14,
   "links": [],
   "liveNow": true,
   "panels": [
@@ -27,7 +29,7 @@
         "uid": "P31C819B24CF3C3C7"
       },
       "gridPos": {
-        "h": 2,
+        "h": 3,
         "w": 3,
         "x": 0,
         "y": 0
@@ -36,7 +38,7 @@
       "options": {
         "buttonGroup": {
           "orientation": "center",
-          "size": "md"
+          "size": "lg"
         },
         "confirmModal": {
           "body": "Please confirm to update changed values",
@@ -141,6 +143,7 @@
           "timeField": "@timestamp"
         }
       ],
+      "transparent": true,
       "type": "volkovlabs-form-panel"
     },
     {
@@ -149,7 +152,7 @@
         "uid": "P31C819B24CF3C3C7"
       },
       "gridPos": {
-        "h": 2,
+        "h": 3,
         "w": 3,
         "x": 3,
         "y": 0
@@ -158,7 +161,7 @@
       "options": {
         "buttonGroup": {
           "orientation": "center",
-          "size": "md"
+          "size": "lg"
         },
         "confirmModal": {
           "body": "Please confirm to update changed values",
@@ -263,6 +266,7 @@
           "timeField": "@timestamp"
         }
       ],
+      "transparent": true,
       "type": "volkovlabs-form-panel"
     },
     {
@@ -352,6 +356,60 @@
         "type": "elasticsearch",
         "uid": "P31C819B24CF3C3C7"
       },
+      "description": "",
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 0,
+        "y": 3
+      },
+      "id": 5,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<h4>This module keeps spoofing selected hosts on the network using crafted ARP packets in order to perform a MITM attack.</h4>\n\n<table>\n<thead>\n<tr>\n<th>parameter</th>\n<th>default</th>\n<th>description</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>arp.spoof.targets</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td><code>&lt;entire subnet&gt;</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td>A comma separated list of MAC addresses, IP addresses, IP ranges or aliases to spoof (<a href=\"https://github.com/malfunkt/iprange\" class=\"highlight\">a list of supported range formats</a>).</td>\n</tr>\n<tr>\n<td><code>arp.spoof.fullduplex</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td><code>false</code></td>\n<td>If true, both the targets and the gateway will be attacked, otherwise only the target (<strong>if the router has ARP spoofing protections in place this will make the attack fail</strong>).</td>\n</tr>\n<tr>\n<td><code>arp.spoof.internal</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td><code>false</code></td>\n<td>If true, local connections among computers of the network will be spoofed as well, otherwise only connections going to and coming from the external network.</td>\n</tr>\n<tr>\n<td><code>arp.spoof.skip_restore</code><span class=\"copy-to-clipboard\" title=\"Copy to clipboard\"></span></td>\n<td><code>false</code></td>\n<td>If set to true, targets arp cache won't be restored when spoofing is stopped.\n</strong>).</td>\n</tr>\n</tbody>\n</table>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto"
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasource": {
+            "type": "elasticsearch",
+            "uid": "P31C819B24CF3C3C7"
+          },
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "query": "",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "elasticsearch",
+        "uid": "P31C819B24CF3C3C7"
+      },
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -392,9 +450,9 @@
         ]
       },
       "gridPos": {
-        "h": 8,
-        "w": 18,
-        "x": 6,
+        "h": 11,
+        "w": 11,
+        "x": 12,
         "y": 8
       },
       "id": 3,
@@ -460,7 +518,7 @@
             "include": {
               "names": [
                 "data",
-                "time"
+                "@timestamp"
               ]
             }
           }
@@ -491,12 +549,13 @@
           "text": "10.0.0.1",
           "value": "10.0.0.1"
         },
+        "description": "A comma separated list of MAC addresses, IP addresses, IP ranges or aliases to spoof (a list of supported range formats).",
         "hide": 0,
         "label": "IP Address / Range",
         "name": "input_1",
         "options": [
           {
-            "selected": false,
+            "selected": true,
             "text": "127.0.0.1-80",
             "value": "127.0.0.1-80"
           }
@@ -511,6 +570,7 @@
           "text": "false",
           "value": "false"
         },
+        "description": "If true, both the targets and the gateway will be attacked, otherwise only the target (if the router has ARP spoofing protections in place this will make the attack fail).",
         "hide": 0,
         "includeAll": false,
         "label": "arp.spoof.fullduplex",
@@ -539,6 +599,7 @@
           "text": "false",
           "value": "false"
         },
+        "description": "If true, local connections among computers of the network will be spoofed as well, otherwise only connections going to and coming from the external network.",
         "hide": 0,
         "includeAll": false,
         "label": "arp.spoof.internal",
@@ -567,6 +628,7 @@
           "text": "false",
           "value": "false"
         },
+        "description": "If set to true, targets arp cache won't be restored when spoofing is stopped.\n",
         "hide": 0,
         "includeAll": false,
         "label": "arp.spoof.skip_restore ",
@@ -613,6 +675,6 @@
   "timezone": "browser",
   "title": "ARP_Spoof",
   "uid": "cdjlzrq0g658gb",
-  "version": 2,
+  "version": 10,
   "weekStart": ""
 }

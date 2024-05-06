@@ -18,7 +18,6 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 3,
     "links": [],
     "panels": [
       {
@@ -35,8 +34,8 @@
         "id": 1,
         "options": {
           "buttonGroup": {
-            "orientation": "left",
-            "size": "lg"
+            "orientation": "center",
+            "size": "md"
           },
           "confirmModal": {
             "body": "Please confirm to update changed values",
@@ -133,7 +132,6 @@
             "timeField": "@timestamp"
           }
         ],
-        "title": "Scan WIFI",
         "transparent": true,
         "type": "volkovlabs-form-panel"
       }
@@ -149,8 +147,7 @@
     },
     "timepicker": {},
     "timezone": "browser",
-    "title": "Scan WIFI",
-    "uid": "adji9p4cdd3i8c",
-    "version": 2,
+    "title": "HTTP.proxy",
+    "version": 0,
     "weekStart": ""
   }
