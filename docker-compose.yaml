@@ -10,6 +10,7 @@ services:
       - GF_ELASTICSEARCH_INDEX=@timestamp
       - GF_INSTALL_PLUGINS=volkovlabs-form-panel
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
     volumes:
       - grafana-storage:/var/lib/grafana
       - ./app/grafana-provisioning/:/etc/grafana/provisioning

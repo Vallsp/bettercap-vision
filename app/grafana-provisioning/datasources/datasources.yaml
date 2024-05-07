@@ -14,4 +14,4 @@ datasources:
     interval: Daily
   isDefault: true
   secureJsonData:
-      basicAuthPassword: P@55aran
+      basicAuthPassword: ${ELASTIC_PASSWORD}
