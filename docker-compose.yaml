@@ -21,6 +21,7 @@ services:
     container_name: bettercap
     network_mode: host
     restart: unless-stopped
+    privileged: true
     # ports:
     #   - '80:80'
     #   - '8081:8081'
@@ -71,8 +72,7 @@ services:
     container_name: nginx
     restart: unless-stopped
     ports:
-      - '443:443'
-      - '80:80'
+      - '8443:8443'
     volumes:
       - ./app/nginx/conf.d:/etc/nginx/conf.d    
     secrets:

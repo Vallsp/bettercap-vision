@@ -74,7 +74,7 @@ make up
 4. **Accessing Grafana**
 Once the containers are up and running, access the Grafana dashboard through your web browser:
 
-```http://localhost```
+```http://localhost:8443```
 
 Use the default Grafana credentials (admin/admin) unless changed in the `.env`. The dashboard should be loaded but there will be likely no data unless Bettercap did some logging.
 
