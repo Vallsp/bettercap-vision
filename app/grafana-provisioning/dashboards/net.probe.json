@@ -402,6 +402,7 @@
             "cellOptions": {
               "type": "auto"
             },
+            "filterable": true,
             "inspect": false
           },
           "mappings": [],
@@ -445,6 +446,7 @@
         "cellHeight": "sm",
         "footer": {
           "countRows": false,
+          "enablePagination": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -829,6 +831,6 @@
   "timezone": "browser",
   "title": "net.probe",
   "uid": "adkv800cqn7k0f",
-  "version": 27,
+  "version": 28,
   "weekStart": ""
 }
