@@ -4,6 +4,20 @@ A *betterview* for bettercap
 
 ![image](https://github.com/Vallsp/bettercap-vision/assets/145016532/40f47f61-fbeb-476b-b267-e3236e6b7180)
 
+
+## Introduction
+Bettercap-Vision provides an easy interface for Bettercap. It combines various components like Logstash, Elasticsearch, Grafana, to create a comprehensive network attack and monitoring solution.
+
+You can easily set up and deploy the entire environment using Docker containers. It allows you to collect Bettercap logs, store them in Elasticsearch, and visualize the data using Grafana.
+
+This tool provides a customizable and user-friendly interface for analyzing network activity and identifying potential security vulnerabilities. It is ideal for security professionals, penetration testers, and network administrators who want to monitor and analyze network traffic in real-time.
+
+## Benefits
+- Easy setup and portability with Docker containers
+- Customizable Grafana dashboards for displaying data
+- Centralized log storage and analysis
+- Enhanced visibility into network security
+
 ## Overview
 
 The project is structured to use Docker containers for easy setup and portability. It includes : 
@@ -20,8 +34,8 @@ The project is structured to use Docker containers for easy setup and portabilit
 
 - **app folder**: Located at `./app`, this folder contains configuration, such as for provisioning dashboard for Grafana, the Nginx configuration, Logstash config, and Bettercap custom caplets.
 - **Dockerfile**: Located at `./certs/Dockerfile`, this file creates a Docker container based on Alpine to generate certificates. It includes the installation of OpenSSL, and it will generate the certificates in `./secrets/certs`.
-- **.env_example**: Located at `./env`, this example must be copied as `.env`.
-- **docker-compose.yaml**: Found in `./docker-compose.yml`, this Docker Compose file sets up all the containers. (Used by `make up`)
+- **.env.example**: Located at `./env.example`, this example must be copied as `.env`.
+- **docker-compose.yaml**: Found in `./docker-compose.yaml`, this Docker Compose file sets up all the containers. (Used by `make up`)
 - **docker-compose.setup.yaml**: Found in `./docker-compose.yml`, this Docker Compose file sets up the `certs` container. (Used by `make certs`)
 - **Makefile**: Found in `./Makefile`, this Makefile contains all commands available.
 - **dashboard.yml**: Located at `./app/grafana-provisioning/dashboards/dashboard.yml`, this configuration file specifies the dashboard provider settings for Grafana.
@@ -68,6 +82,10 @@ Use the default Grafana credentials (admin/admin) unless changed in the `.env`. 
 
 - The Grafana dashboard and data source configurations can be adjusted in `./app/grafana-provisioning/dashboards/dashboard.yml` and `./app/grafana-provisioning/datasources/datasources.yml` respectively, allowing for further customization of how data is displayed.
 - You can add your own dashboards json files in `./app/grafana-provisioning/dashboards`.
+
+## IMPORTANT
+
+- Bettercap and Logstash use host networking to communicate with each other. This is because Bettercap does not support custom network interfaces for the REST API. This means that the Bettercap REST API is exposed on the host machine, so be sure to secure it properly. In addition, Elasticsearch has port 9200 exposed for Logstash to send data to it.
 
 ## Credits
 
