@@ -1,4 +1,4 @@
-# api listening on http://127.0.0.1:8081/ and ui to http://127.0.0.1
+# api listening on http://127.0.0.1:8081/ and ui to http://127.0.0.1:8082
 set api.rest.address 127.0.0.1
 set api.rest.port 8081
 set http.server.address 127.0.0.1

@@ -22,7 +22,7 @@ services:
     container_name: bettercap
     network_mode: host
     restart: unless-stopped
-    privileged: true
+    # privileged: true
     # ports:
     #   - '80:80'
     #   - '8081:8081'
