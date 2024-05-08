@@ -44,6 +44,8 @@ The project is structured to use Docker containers for easy setup and portabilit
 
 ## Usage
 
+Tested on **Ubuntu 24.04** with native Docker CE. Doesnt work on Windows for the moment.
+
 To get started with this setup, ensure you have Docker, Docker Compose and make installed on your system. 
 
 Follow these steps to deploy the environment:
