@@ -2,8 +2,7 @@
 
 A *betterview* for bettercap
 
-![image](https://github.com/Vallsp/bettercap-vision/assets/145016532/40f47f61-fbeb-476b-b267-e3236e6b7180)
-
+![demo](https://github.com/Vallsp/bettercap-vision/assets/145016532/40f47f61-fbeb-476b-b267-e3236e6b7180)
 
 ## Introduction
 Bettercap-Vision provides an easy interface for Bettercap. It combines various components like Logstash, Elasticsearch, Grafana, to create a comprehensive network attack and monitoring solution.
@@ -28,7 +27,7 @@ The project is structured to use Docker containers for easy setup and portabilit
 - **Grafana** for log visualization;
 - **Nginx** for the reverse proxying Grafana
 
-![infra](https://github.com/Vallsp/bettercap-vision/assets/145016532/27b0d3ff-5bb0-4441-a7de-8176f558f4fc)
+![infra](https://github.com/Vallsp/bettercap-vision/assets/145016532/1138a790-f5e1-4261-bd83-ba64747c8a02)
 
 ### File Structure
 
@@ -44,7 +43,7 @@ The project is structured to use Docker containers for easy setup and portabilit
 
 ## Usage
 
-Tested on **Ubuntu 24.04** with native Docker CE. Doesnt work on Windows for the moment.
+Tested on **Ubuntu 24.04** with native Docker CE. Doesn't work on Windows or macOS for the moment.
 
 To get started with this setup, ensure you have Docker, Docker Compose and make installed on your system. 
 
