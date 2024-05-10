@@ -25,9 +25,9 @@ The project is structured to use Docker containers for easy setup and portabilit
 
 - **Bettercap** for network attacks and monitoring;
 - **Logstash** for collecting Bettercap logs;
-- **Elasticsearch** for storing the logs:
+- **Elasticsearch** for storing the logs;
 - **Grafana** for log visualization;
-- **Nginx** for the reverse proxying Grafana
+- **Nginx** for the reverse proxying of Grafana;
 
 ![infra](https://github.com/Vallsp/bettercap-vision/assets/145016532/ef6cabf0-8096-4e26-9588-5cb3505ef70f)
 
