@@ -57,7 +57,7 @@ Follow these steps to deploy the environment:
 git clone https://github.com/vallsp/bettercap-vision
 ```
 
-2. **Fill .env**
+2. **Fill .env (Required)**
 
 Copy `.env_example` to `.env`, generate a **strong password** or keep the default passwords (not recommended).
 Fill `.env` file with your credentials, and your network interface (ex: eth0).
