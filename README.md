@@ -96,6 +96,8 @@ Use the default Grafana credentials (admin/admin) unless changed in the `.env`. 
 
 - Bettercap and Logstash use host networking to communicate with each other. This is because Bettercap does not support custom network interfaces for the REST API. This means that the Bettercap REST API is exposed on the host machine, so be sure to secure it properly. In addition, Elasticsearch has port 9200 exposed for Logstash to send data to it.
 - Due to constraints with dashboards, it is not possible to modify the default credentials of Bettercap. The default credentials are ```user:pass```.
+- The software is provided as-is, without any warranty or guarantee of performance. Use at your own risk.
+- The software is intended for educational and informational purposes only. It is not a substitute for professional security tools and practices.
 
 ## Credits
 
