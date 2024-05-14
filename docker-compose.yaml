@@ -31,7 +31,6 @@ services:
     volumes:
       - ./app/bettercap_config/http-ui.cap:/app/http-ui.cap
       - ./app/bettercap_config/https-ui.cap:/app/https-ui.cap
-      - /tmp/bettercap:/tmp/bettercap/
     command: -caplet http-ui -eval caplets.update -eval ui.update
 
   elasticsearch:
